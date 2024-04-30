@@ -1,8 +1,23 @@
 const express = require('express')
+const dotenv = require('dotenv')
 
 const server = express()
 
-const PORT = 9000
+dotenv.config()
+
+const PORT = process.env.PORT || 9000
+
+const middleware = (req, res, next) => {
+  console.log('----')
+  console.log('Im the middleware')
+  console.log('----')
+  next()
+}
+
+server.use(middleware)
+
+server.use(express.json)
+server.use(express.urlencoded({extended: true}))
 
 server.get('/', (req, res) => {
   res.send('My first back-end!')
@@ -30,16 +45,31 @@ server.get('/file', (req, res) => {
   res.status(200).sendFile(__dirname + '/index.html')
 })
 
-server.post('/file', (req, res) => {
-  res.send('Succed')
-})
-
 server.get('/download', (req, res) => {
   res.status(200).download(__dirname + '/invoice.pdf')
 })
 
 server.get('/goto', (req, res) => {
   res.status(200).redirect('http://www.google.com')
+})
+
+server.post('/file', (req, res) => {
+  res.send('Succed')
+})
+
+server.delete('/delete/:id', (req, res)=>{
+  console.log(req.body)
+  res.send('Delete ok.')
+})
+
+server.put('/update', (req, res)=>{
+  console.log(req.body)
+  res.send('Modify ok.')
+})
+
+server.path('/updatePath', (req, res)=>{
+  console.log(req.body)
+  res.send('Modify by path.')
 })
 
 server.listen(PORT, () => {
