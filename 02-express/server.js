@@ -5,14 +5,13 @@ const server = express()
 
 dotenv.config()
 
-const PORT = process.env.PORT || 9000
+const { 
+  middleware,
+  anotherMddleware,
+  lastMiddleware 
+} = require('./middlewares')
 
-const middleware = (req, res, next) => {
-  console.log('----')
-  console.log('Im the middleware')
-  console.log('----')
-  next()
-}
+const PORT = process.env.PORT || 9000
 
 server.use(middleware)
 
