@@ -10,5 +10,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', userRouter)
+app.use('/product', productRouter)
 
 module.exports = app
