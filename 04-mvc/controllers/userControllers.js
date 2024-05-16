@@ -1,13 +1,7 @@
 const { request, response } = require('express')
 
-const goHome = (req = request, res = response) => {
-  res.json({
-    Home: 'This is the home site'
-  })
-}
-
 const getUsers = (req = request, res = response) => {
-  res.send(`<h1>Users<h1/>`)
+  res.send(`<h1>User<h1/>`)
 }
 
 const createUsers = (req = request, res = response) => {
@@ -18,18 +12,18 @@ const createUsers = (req = request, res = response) => {
 }
 
 const updateUsers = (req = request, res = response) => {
+  res.json({
+    actualizado: 'Data updated'
+  })
 }
-res.json({
-  actualizado: 'Data updated'
-})
 
 const deleteUsers = (req = request, res = response) => {
+  res.json({
+    eliminado: 'Data deleted'
+  })
 }
-res.json({
-  eliminado: 'Data deleted'
-})
+
 module.exports = {
-  goHome,
   getUsers,
   createUsers,
   updateUsers,
