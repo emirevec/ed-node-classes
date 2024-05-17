@@ -14,10 +14,14 @@ app.set('view engine', 'hbs')
 app.set('views', './views')
 hbs.registerPartials(__dirname + '/views/partials')
 
+app.use('/user', userRouter)
+
 app.get('/', (req, res) => {
-  res.send('Home page')
+  res.render('index')
 })
 
-app.use('/user', userRouter)
+app.get('*', (req, res) => {
+  res.render('error')
+})
 
 module.exports = app
