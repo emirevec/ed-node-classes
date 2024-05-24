@@ -11,21 +11,17 @@ const clientOptions = {
         } 
     };
 
-const MONGO_LOCAL = process.env.MONGO_LOCAL;
+//const MONGO_LOCAL = process.env.MONGO_LOCAL;
 const MONGO_ATLAS = process.env.MONGO_ATLAS;
 
-const conexion = mongoose.connect(MONGO_LOCAL, clientOptions)
+const connection = mongoose.connect(MONGO_ATLAS, clientOptions)
     .then(
         () => { 
-            console.log('==========================================');
-            console.log(`Conexión a la database ${MONGO_LOCAL} exitosa`);
-            console.log('==========================================');
+            console.log(`================\nConexión a la database ${MONGO_ATLAS}\nExitosa.\n================`);
         },
         err => {
-            console.log('==========================================');
-            console.log(`Error en la conexión a la database ${err}`);
-            console.log('==========================================');
+            console.log(`==========================================\nError en la conexión a la database ${err}\n==========================================`);
         }
 );
 
-module.exports = conexion;
+module.exports = connection;
