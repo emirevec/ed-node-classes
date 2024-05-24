@@ -1,23 +1,22 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const userSchema = new Schema({
+const productSchema = new Schema({
   name: {
     type: String,
     required: true
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true
+  price:  {
+    type: Number,
+    required: true
   },
-  password: {
+  image: {
     type: String,
     required: true
   },
-  date: {
-    type: Date,
-    default: new Date()
+  description:  {
+    type: String,
+    required: true
   }
 })
 
