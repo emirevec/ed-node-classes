@@ -1,43 +1,40 @@
 const { request, response } = require('express')
-const User = require('../models/userModels')
+const User = require('../models/userModel')
 
 const getUsers = (req = request, res = response) => {
   res.send(`<h1>User<h1/>`)
 }
 
-const createUsers = async (req = request, res = response) => {
+const renderFormJoinNow = (req = request, res = response) => {
+  res.render('joinNow')
+}
+
+const renderFormSingIn = (req = request, res = response) => {
+  res.render('singIn')
+}
+
+const renderFormAccount = (req = request, res = response) => {
+  res.render('myAccount')
+}
+
+const createUser = async (req = request, res = response) => {
   const user = new User(req.body)
   const userSaved = await user.save()
   if (userSaved) {
-    return res.render('resForm', {
-      email: req.body.email,
-      password: req.body.password,
-    })
+    return res.render('singIn')
+  } else {
+    const err = "An error has ocurred when trying to create the new user."
+    return res.render('error', {error: err})
   }
-  
-  /* 
-  try {
-    user.save()
-  } catch (err) {
-    throw new Error('Error' + err)
-    return res.send('error', {error: err})
-  }
-  res.json({
-    users: 'usuario'
-  }) */
 }
 
-const getLogIn = (req = request, res = response) => {
-
-}
-
-const updateUsers = (req = request, res = response) => {
+const updateUser = (req = request, res = response) => {
   res.json({
     actualizado: 'Data updated'
   })
 }
 
-const deleteUsers = (req = request, res = response) => {
+const deleteUser = (req = request, res = response) => {
   res.json({
     eliminado: 'Data deleted'
   })
@@ -45,8 +42,10 @@ const deleteUsers = (req = request, res = response) => {
 
 module.exports = {
   getUsers,
-  getLogIn,
-  createUsers,
-  updateUsers,
-  deleteUsers
+  createUser,
+  updateUser,
+  deleteUser,
+  renderFormJoinNow,
+  renderFormSingIn,
+  renderFormAccount
 }
