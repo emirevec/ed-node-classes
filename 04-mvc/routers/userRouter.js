@@ -1,15 +1,27 @@
 const express = require('express')
 const router = express.Router()
-const { getUsers, getLogIn, createUsers, updateUsers, deleteUsers } = require('../controllers/userControllers')
+const { 
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+  renderFormJoinNow,
+  renderFormSingIn,
+  renderFormAccount
+} = require('../controllers/userControllers')
 
 router.get('/', getUsers)
 
-router.get('formLogin', getLogIn )
+router.get('/joinnow', renderFormJoinNow)
 
-/* router.post('/users', createUsers)
+router.get('/singin', renderFormSingIn)
 
-router.put('/users', updateUsers )
+router.get('/account', renderFormAccount)
 
-router.delete('/users', deleteUsers) */
+router.post('/joinnow', createUser)
+
+router.put('/account', updateUser)
+
+router.delete('/account', deleteUser)
 
 module.exports = router
