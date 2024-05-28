@@ -3,8 +3,15 @@ const User = require('../models/userModel')
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcrypt')
 
-const getUsers = (req = request, res = response) => {
-  res.send(`<h1>User<h1/>`)
+const getUsers = async (req = request, res = response) => {
+  try {
+    const users = await User.find({})
+    res.render('usersList', {user: users})
+  } catch (error) {
+    console.error(error)
+    const err = "An error has ocurred when trying to get the list of users."
+    return res.render('error', {error: err})
+  }
 }
 
 const renderFormJoinNow = (req = request, res = response) => {
