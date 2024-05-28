@@ -1,5 +1,7 @@
 const { request, response } = require('express')
 const User = require('../models/userModel')
+const { validationResult } = require('express-validator')
+const bcrypt = require('bcrypt')
 
 const getUsers = (req = request, res = response) => {
   res.send(`<h1>User<h1/>`)
@@ -18,11 +20,28 @@ const renderFormAccount = (req = request, res = response) => {
 }
 
 const createUser = async (req = request, res = response) => {
-  const user = new User(req.body)
-  const userSaved = await user.save()
-  if (userSaved) {
-    return res.render('singIn')
-  } else {
+  const valid = validationResult(req)
+  if (!valid.isEmpty()) {
+    const err = "Wrong log in data."
+    return res.render('error', { error: err})
+  }
+  
+  const newUser = new User(req.body)
+  
+  try {
+    const salt = await bcrypt.genSalt(10)
+    newUser.password = await bcrypt.hash(newUser.password, salt)
+
+    const newUserSaved = await newUser.save()
+
+    if (newUserSaved) {
+      return res.render('singIn')
+    } else {
+      const err = "The new user cannot be created."
+      return res.render('error', {error: err})
+    }
+  } catch (error) {
+    console.error(error)
     const err = "An error has ocurred when trying to create the new user."
     return res.render('error', {error: err})
   }

@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { body, check } = require('express-validator')
 const { 
   getUsers,
   createUser,
@@ -18,7 +19,11 @@ router.get('/singin', renderFormSingIn)
 
 router.get('/account', renderFormAccount)
 
-router.post('/joinnow', createUser)
+router.post('/joinnow', [
+  check("name").isString(),
+  body("email").isEmail(),
+  check("password").isString(),
+], createUser)
 
 router.put('/account', updateUser)
 
