@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 const getUsers = async (req = request, res = response) => {
   try {
     const users = await User.find({})
-    res.render('usersList', {user: users})
+    res.render('./user/usersList', {user: users})
   } catch (error) {
     console.error(error)
     const err = "An error has ocurred when trying to get the list of users."
@@ -15,15 +15,15 @@ const getUsers = async (req = request, res = response) => {
 }
 
 const renderFormJoinNow = (req = request, res = response) => {
-  res.render('joinNow')
+  res.render('./user/joinNow')
 }
 
 const renderFormSingIn = (req = request, res = response) => {
-  res.render('singIn')
+  res.render('./user/singIn')
 }
 
 const renderFormAccount = (req = request, res = response) => {
-  res.render('myAccount')
+  res.render('./user/myAccount')
 }
 
 const createUser = async (req = request, res = response) => {

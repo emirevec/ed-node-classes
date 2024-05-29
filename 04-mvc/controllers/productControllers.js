@@ -2,7 +2,7 @@ const { request, response } = require('express')
 // const Product = require('..models/productModel')
 
 const registerProduct = (req = request, res = response) => {
-  res.render('formProducts')
+  res.render('./product/formProducts')
 }
 
 module.exports = {
