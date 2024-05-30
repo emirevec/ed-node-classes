@@ -2,6 +2,7 @@ const { request, response } = require('express')
 const User = require('../models/userModel')
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcrypt')
+const sendWelcomeMail = require('../services/emailSender')
 
 const getUsers = async (req = request, res = response) => {
   try {
@@ -41,8 +42,11 @@ const createUser = async (req = request, res = response) => {
 
     const newUserSaved = await newUser.save()
 
+    sendWelcomeMail(newUser.name, newUser.email)
+      .then(console.log('Email sent'))
+
     if (newUserSaved) {
-      return res.render('singIn')
+      return res.render('./user/singIn')
     } else {
       const err = "The new user cannot be created."
       return res.render('error', {error: err})
