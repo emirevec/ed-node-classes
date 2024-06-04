@@ -3,6 +3,9 @@ const User = require('../models/userModel')
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcrypt')
 const sendWelcomeMail = require('../services/emailSender')
+const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
+dotenv.config()
 
 const getUsers = async (req = request, res = response) => {
   try {
@@ -70,6 +73,52 @@ const deleteUser = (req = request, res = response) => {
   })
 }
 
+const singIn = async (req = request, res = response) => {
+  const { email, password } = req.body
+  const valid = validationResult(req)
+  if (!valid.isEmpty()) {
+    const err = "Wrong sing in data."
+    return res.render('error', { error: err})
+  }
+
+  try {
+    const user = await User.findOne({email})
+    console.log(user)
+    if(!user) {
+      const err = "User doesn't exist, go to Join Now for create an account."
+      return res.render('error', {
+        error: err
+      })
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password)
+    if(!validPassword) {
+      const err = "Email, password or both are incorrect!!"
+      return res.render('error', {
+        error: err
+      })
+    }
+
+    const signature = process.env.JWT_SECRET
+    const token = jwt.sign({
+      name: user.name
+      },
+      signature,
+      {
+        expiresIn: '1h'
+      }
+    )
+
+    res.header('auth-token', token).render('./product/formProducts')
+
+  } catch (error) {
+      const err = 'An error has occurred when trying to log in.'
+      return res.render('error', {
+        error: err
+      })
+  }
+}
+
 module.exports = {
   getUsers,
   createUser,
@@ -77,5 +126,6 @@ module.exports = {
   deleteUser,
   renderFormJoinNow,
   renderFormSingIn,
-  renderFormAccount
+  renderFormAccount,
+  singIn
 }

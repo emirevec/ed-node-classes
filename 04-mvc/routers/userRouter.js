@@ -7,7 +7,8 @@ const {
   deleteUser,
   renderFormJoinNow,
   renderFormSingIn,
-  renderFormAccount
+  renderFormAccount,
+  singIn
 } = require('../controllers/userControllers')
 
 const validateUserInput = () => {
@@ -22,11 +23,16 @@ router.get('/', getUsers)
 
 router.get('/joinnow', renderFormJoinNow)
 
+router.post('/joinnow', validateUserInput(), createUser)
+
 router.get('/singin', renderFormSingIn)
 
-router.get('/account', renderFormAccount)
+router.post('/singin', [
+  check("email").isEmail(),
+  check("password").isString()
+], singIn)
 
-router.post('/joinnow', validateUserInput(), createUser)
+router.get('/account', renderFormAccount)
 
 router.put('/account', updateUser)
 
