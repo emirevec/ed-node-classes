@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const LOG_FILE_PATH = path.join(__dirname, '../logs', '/requests.log')
 
-const addRequest = async (req, res, next) => {
+const addRequestLog = async (req, res, next) => {
   //obtener el metodo y url de la petición entrante
   const method = req.method
   const url = req.url
@@ -19,4 +19,4 @@ const addRequest = async (req, res, next) => {
   next()
 }
 
-module.exports = addRequest
+module.exports = addRequestLog

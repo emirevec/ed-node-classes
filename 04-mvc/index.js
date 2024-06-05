@@ -4,9 +4,10 @@ const morgan = require('morgan')
 const hbs = require('hbs')
 const userRouter = require('./routers/userRouter')
 const productRouter = require('./routers/productRouter')
-const addRequest = require('./middlewares/middlewares')
 
-app.use(addRequest)
+/* const addRequest = require('./middlewares/addRequestLog')
+app.use(addRequest) */
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
