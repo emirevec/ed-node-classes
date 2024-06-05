@@ -2,7 +2,7 @@ const { request, response } = require('express')
 const User = require('../models/userModel')
 const { validationResult } = require('express-validator')
 const bcrypt = require('bcrypt')
-const sendWelcomeMail = require('../services/emailSender')
+const { sendEmail } = require('../services')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -33,7 +33,7 @@ const renderFormAccount = (req = request, res = response) => {
 const createUser = async (req = request, res = response) => {
   const valid = validationResult(req)
   if (!valid.isEmpty()) {
-    const err = "Wrong log in data."
+    const err = "You've entered an invalid data, please check it and do it again."
     return res.render('error', { error: err})
   }
   
@@ -45,8 +45,8 @@ const createUser = async (req = request, res = response) => {
 
     const newUserSaved = await newUser.save()
 
-    sendWelcomeMail(newUser.name, newUser.email)
-      .then(console.log('Email sent'))
+    /* sendEmail(newUser.name, newUser.email)
+      .then(console.log('Email sent')) */
 
     if (newUserSaved) {
       return res.render('./user/singIn')

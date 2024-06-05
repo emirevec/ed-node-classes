@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { body, check } = require('express-validator')
+const { validateUserSingInData } = require('../middlewares')
 const { 
   getUsers,
   createUser,
@@ -11,26 +11,15 @@ const {
   singIn
 } = require('../controllers/userControllers')
 
-const validateUserInput = () => {
-  return [
-    check("name").isString(),
-    body("email").isEmail(),
-    check("password").isString(),
-  ]
-}
-
 router.get('/', getUsers)
 
 router.get('/joinnow', renderFormJoinNow)
 
-router.post('/joinnow', validateUserInput(), createUser)
+router.post('/joinnow', validateUserSingInData(), createUser)
 
 router.get('/singin', renderFormSingIn)
 
-router.post('/singin', [
-  check("email").isEmail(),
-  check("password").isString()
-], singIn)
+router.post('/singin', validateUserSingInData(), singIn)
 
 router.get('/account', renderFormAccount)
 

@@ -2,11 +2,11 @@ const express = require('express')
 const morgan = require('morgan')
 const hbs = require('hbs')
 const { productRouter, userRouter } = require('./routers')
-//const addRequest = require('./middlewares/addRequestLog')
+//const addRequestLog = require('./middlewares')
 
 const app = express()
 
-//app.use(addRequest)
+//app.use(addRequestLog)
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
