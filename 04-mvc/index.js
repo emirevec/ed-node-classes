@@ -1,13 +1,12 @@
 const express = require('express')
-const app = express()
 const morgan = require('morgan')
 const hbs = require('hbs')
-const userRouter = require('./routers/userRouter')
-const productRouter = require('./routers/productRouter')
+const { productRouter, userRouter } = require('./routers')
+//const addRequest = require('./middlewares/addRequestLog')
 
-/* const addRequest = require('./middlewares/addRequestLog')
-app.use(addRequest) */
+const app = express()
 
+//app.use(addRequest)
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
