@@ -1,7 +1,7 @@
 const addRequestLog = require('./addRequestLog')
-const validateUserSingInData = require('./validateUserSingInData')
+const validateUserLogInData = require('./validateUserLogInData')
 
 module.exports = {
   addRequestLog,
-  validateUserSingInData
+  validateUserLogInData
 }

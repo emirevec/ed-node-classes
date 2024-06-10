@@ -22,7 +22,7 @@ const renderFormJoinNow = (req = request, res = response) => {
   res.render('./user/joinNow')
 }
 
-const renderFormSingIn = (req = request, res = response) => {
+const renderFormLogIn = (req = request, res = response) => {
   res.render('./user/singIn')
 }
 
@@ -82,7 +82,7 @@ const deleteUser = (req = request, res = response) => {
   })
 }
 
-const singIn = async (req = request, res = response) => {
+const logIn = async (req = request, res = response) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     const err = "You've entered an invalid data, please check it and do it again."
@@ -117,7 +117,7 @@ module.exports = {
   updateUser,
   deleteUser,
   renderFormJoinNow,
-  renderFormSingIn,
+  renderFormLogIn,
   renderFormAccount,
-  singIn
+  logIn
 }

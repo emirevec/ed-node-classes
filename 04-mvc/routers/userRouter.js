@@ -1,25 +1,25 @@
 const router = require('express').Router()
-const { validateUserSingInData } = require('../middlewares')
+const { validateUserLogInData } = require('../middlewares')
 const { 
   getUsers,
   createUser,
   updateUser,
   deleteUser,
   renderFormJoinNow,
-  renderFormSingIn,
+  renderFormLogIn,
   renderFormAccount,
-  singIn
+  logIn
 } = require('../controllers/userControllers')
 
 router.get('/', getUsers)
 
 router.get('/joinnow', renderFormJoinNow)
 
-router.post('/joinnow', validateUserSingInData(), createUser)
+router.post('/joinnow', validateUserLogInData(), createUser)
 
-router.get('/singin', renderFormSingIn)
+router.get('/login', renderFormLogIn)
 
-router.post('/singin', validateUserSingInData(), singIn)
+router.post('/login', validateUserLogInData(), logIn)
 
 router.get('/account', renderFormAccount)
 
