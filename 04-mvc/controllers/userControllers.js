@@ -23,7 +23,7 @@ const renderFormJoinNow = (req = request, res = response) => {
 }
 
 const renderFormLogIn = (req = request, res = response) => {
-  res.render('./user/singIn')
+  res.render('./user/login')
 }
 
 const renderFormAccount = (req = request, res = response) => {
