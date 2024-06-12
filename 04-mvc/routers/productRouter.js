@@ -1,12 +1,38 @@
+/**
+ * Express router providing product related routes.
+ * @module routers/product
+ */
 const express = require('express')
 const router = express.Router()
+
+/**
+ * Product controller methods.
+ * @const
+ */
 const {
   renderFormProduct,
   registerProduct
 } = require('../controllers/productControllers')
 
-router.get('/', renderFormProduct)
+/**
+ * Route serving add product form.
+ * @name get/formproduct
+ * @param {string} path
+ * @param {callback} renderFormProduct - Controller to render the product form.
+ */
+router.get('/formproduct', renderFormProduct)
 
-router.post('/', registerProduct)
+/**
+ * Route for adding a product.
+ * @name post/formproduct
+ * @param {string} path
+ * @param {callback} registerProduct - Controller to add a product.
+ */
+router.post('/formproduct', registerProduct)
+
+/**
+ * Rout for modify or delete a prodcut.
+ * @todo Create the routes and set the controllers.
+ */
 
 module.exports = router
