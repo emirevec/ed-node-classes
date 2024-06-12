@@ -102,10 +102,10 @@ const logIn = async (req = request, res = response) => {
       }
     )
 
-    res.header('auth-token', token).render('./product/formProducts')
+    res.header('auth-token', token).render('./product/formProduct')
 
   } catch (error) {
-    console.log(error.message)  
+    console.error(error.message)  
     const err = 'An error has occurred when trying to sing in. May be email, password or both are incorrect!!'
     return res.render('error', { error: err })
   }
