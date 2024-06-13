@@ -1,0 +1,18 @@
+<div class="container mt-5">
+    <h1>
+        Product list.
+    </h1>
+</div>
+<div class="container mt-5 d-flex flex-wrap">
+    {{#each product }}
+        <div class="card m-3" style="width: 18rem;">
+            <input type="text" value="{{_id}}" disabled>
+                <img src={{ image }} class="card-img-top w-100" alt="imagen del producto">
+            <div class="card-body">
+                <h5 class="card-title">{{ name }}</h5>
+                <p class="card-text">{{ description }}</p>
+                <a href="/product/detalle/{{_id}}" class="btn btn-primary">More details.</a>
+            </div>
+        </div>
+    {{/each}}
+</div>
