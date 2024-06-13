@@ -30,8 +30,21 @@ const renderProductsList = async (req = request, res = response) => {
     const products = await getProducts()
     return res.render('product/cardProducts', {product: products})
   } catch (error) {
+    console.error(error.message)
+    const err = 'An error has occurred when trying to show the list of products.'
+    return res.render('error', {error: err})
+  }
+}
+
+
+const renderProductDetail = async (req = request, res = response) => {
+  const id = req.params._id
+  try {
+    const product = await getProducts(id)
+    return res.render('product/detailProduct', {product: product})
+  } catch (error) {
   console.error(error.message)
-  const err = 'An error has occurred when trying to show the list of products.'
+  const err = 'An error has occurred when trying to show the product detail.'
   return res.render('error', {error: err})
   }
 }
@@ -65,6 +78,7 @@ const registerProduct = async (req = request, res = response) => {
 
 module.exports = {
   renderFormProduct,
+  renderProductDetail,
   renderProductsList,
   registerProduct
 }
