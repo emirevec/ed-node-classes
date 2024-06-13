@@ -1,6 +1,7 @@
 const { request, response } = require('express')
 const jwt = require('jsonwebtoken')
 const Product = require('../models/productModel')
+const getProducts = require('../services/getProducts')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -22,7 +23,17 @@ const renderFormProduct = async (req = request, res = response) => {
     const err = 'An error has occurred when trying to validate user credentials.'
     return res.render('error', { error: err })
   }
+}
 
+const renderProductsList = async (req = request, res = response) => {
+  try {
+    const products = await getProducts()
+    return res.render('product/cardProducts', {product: products})
+  } catch (error) {
+  console.error(error.message)
+  const err = 'An error has occurred when trying to show the list of products.'
+  return res.render('error', {error: err})
+  }
 }
 
 const registerProduct = async (req = request, res = response) => {
@@ -54,5 +65,6 @@ const registerProduct = async (req = request, res = response) => {
 
 module.exports = {
   renderFormProduct,
+  renderProductsList,
   registerProduct
 }

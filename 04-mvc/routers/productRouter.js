@@ -11,8 +11,17 @@ const router = express.Router()
  */
 const {
   renderFormProduct,
+  renderProductsList,
   registerProduct
 } = require('../controllers/productControllers')
+
+/**
+ * Route serving products list.
+ * @name get/
+ * @param {string} path
+ * @param {callback} renderProductsList - Controller to render the products list.
+ */
+router.get('/', renderProductsList)
 
 /**
  * Route serving add product form.
