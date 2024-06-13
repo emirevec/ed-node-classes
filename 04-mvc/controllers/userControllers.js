@@ -1,8 +1,7 @@
 const { request, response } = require('express')
 const User = require('../models/userModel')
 const { validationResult } = require('express-validator')
-const bcrypt = require('bcrypt')
-const { authenticateUser, sendEmail } = require('../services')
+const { authenticateUser, createNewUser, sendEmail } = require('../services')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -37,33 +36,23 @@ const createUser = async (req = request, res = response) => {
     return res.render('error', {error: err})
   }
   
-  const {name, email, password } = req.body
+  const { name, email, password } = req.body
   const person = {
     name: name,
     email: email,
     password: password
   }
-  const newUser = new User(person)
 
   try {
-    const userExist = await User.findOne({email: newUser.email})
-    if (userExist) {
-      const err = 'Email user already exist, plese go to sing in.'
+    const newUser = await createNewUser({person: person})
+    if (!newUser) {
+      const err = 'Email user already exist, plese go to log in.'
       return res.render('error', {error: err})
     }
-    
-    const salt = await bcrypt.genSalt(10)
-    newUser.password = await bcrypt.hash(newUser.password, salt)
-    const newUserSaved = await newUser.save()
-    if (newUserSaved) {
-      /* sendEmail(newUser.name, newUser.email)
-        .then(console.log('Email sent')) */
-      return res.render('./user/singIn')
-    } else {
-      throw new Error
-    }
-  } 
-  catch (error) {
+    /* sendEmail(newUser.name, newUser.email)
+      .then(console.log('Email sent')) */
+    return res.render('./user/LogIn')
+  } catch (error) {
     console.error(error.message)
     const err = "An error has occurred when trying to create the user."
     return res.render('error', {error: err})
