@@ -15,7 +15,7 @@ const { validateUserLogInData } = require('../middlewares')
  * @const
  */
 const { 
-  getUsers,
+  showUsers,
   createUser,
   updateUser,
   deleteUser,
@@ -32,7 +32,7 @@ const {
  * @param {callback} getUsers - Controller to get all users.
  * @todo add access control.
  */
-router.get('/', getUsers)
+router.get('/', showUsers)
 
 /**
  * Route serving join now form.

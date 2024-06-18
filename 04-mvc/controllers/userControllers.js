@@ -1,14 +1,10 @@
 const { request, response } = require('express')
-const User = require('../models/userModel')
 const { validationResult } = require('express-validator')
-const { authenticateUser, createNewUser, sendEmail } = require('../services')
-const jwt = require('jsonwebtoken')
-const dotenv = require('dotenv')
-dotenv.config()
+const { authenticateUser, createNewUser, getUsers, sendEmail } = require('../services')
 
-const getUsers = async (req = request, res = response) => {
+const showUsers = async (req = request, res = response) => {
   try {
-    const users = await User.find({})
+    const users = await getUsers({})
     res.render('./user/usersList', {user: users})
   } catch (error) {
     console.error(error)
@@ -80,16 +76,7 @@ const logIn = async (req = request, res = response) => {
 
   try {
     const { email, password } = req.body
-    const user = await authenticateUser({email, password})
-    const signature = process.env.JWT_SECRET
-    const token = jwt.sign({
-      name: user.name
-      },
-      signature,
-      {
-        expiresIn: '1h'
-      }
-    )
+    const {user, token} = await authenticateUser({email, password})
 
     res.header('auth-token', token).render('./product/formProduct')
 
@@ -101,7 +88,7 @@ const logIn = async (req = request, res = response) => {
 }
 
 module.exports = {
-  getUsers,
+  showUsers,
   createUser,
   updateUser,
   deleteUser,
