@@ -1,27 +1,13 @@
 const { request, response } = require('express')
-const jwt = require('jsonwebtoken')
-const Product = require('../models/productModel')
-const getProducts = require('../services/getProducts')
-const dotenv = require('dotenv')
-dotenv.config()
+const { createProduct, getProducts} = require('../services')
 
-const renderFormProduct = async (req = request, res = response) => {
-  const signature = process.env.JWT_SECRET;
-  
-  try {
-    const token = req.headers.auth-token;
-    const user = await jwt.verify(token, signature)
-    console.log(user)
-    console.log(user.name)
-    if (user) {
-      res.render('./product/formProduct')
-    } else {
-      res.render('./user/login')
-    }
-  } catch (error) {
-    console.error(error.message)  
-    const err = 'An error has occurred when trying to validate user credentials.'
-    return res.render('error', { error: err })
+
+const renderFormProduct = (req = request, res = response) => {
+  const user = req.user
+  if (user) {
+    res.render('./product/formProduct')
+  } else {
+    res.render('./user/login')
   }
 }
 
@@ -59,8 +45,7 @@ const registerProduct = async (req = request, res = response) => {
   }
 
   try {
-    const newProduct = new Product(product)
-    const productRegistered = await newProduct.save()
+    const productRegistered = await createProduct({product})
 
     if (productRegistered) {
       return res.render('./product/formProduct', {message: 'The new product has been succesfully added!'})
