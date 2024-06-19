@@ -7,5 +7,6 @@ export {
   authenticateUser,
   createUser,
   getUsers,
-  sendEmail
+  sendEmail,
+  updateUser
 }

@@ -91,7 +91,7 @@ router.get('/account', renderFormAccount)
  * Route for updating and deleting user's information.
  * @todo Create the flow of views and controller functions.
  */
-router.put('/account', updateUser)
+router.put('/account', validateUserLogInData(), validateToken, updateUser)
 router.delete('/account', deleteUser)
 
 export default router

@@ -55,10 +55,31 @@ const createNewUser = async (req = request, res = response) => {
   }
 } 
 
-const updateUser = (req = request, res = response) => {
-  res.json({
-    actualizado: 'Data updated'
-  })
+const updateUser = async (req = request, res = response) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    const err = "You've entered an invalid data, please check it and do it again."
+    return res.render('error', {error: err})
+  }
+
+  const userLogged = req.user
+  if (userLogged) {
+    const { name, email } = req.body
+    try {
+      const userUpdated = await updateUser({name, email})
+      if (userUpdated) {
+        res.render('myAccount',{message: 'User name successfully updated.'})
+      } else {
+        res.render('error', {error: 'Cannot update user, please check your data and try again.'})
+      }
+    } catch (error) {
+      console.error(error.message)
+      const err = "An error has occurred when trying to update user's name"
+      return res.render('error', {error: err})
+    }
+  } else {
+    res.render('./user/login')
+  }
 }
 
 const deleteUser = (req = request, res = response) => {
