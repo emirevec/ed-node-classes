@@ -1,5 +1,5 @@
 const { request, response } = require('express')
-const { createProduct, getProducts} = require('../services')
+const { createProduct, getProducts} = require('../services/products')
 
 
 const renderFormProduct = (req = request, res = response) => {

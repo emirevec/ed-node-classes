@@ -1,6 +1,6 @@
 const { request, response } = require('express')
 const { validationResult } = require('express-validator')
-const { authenticateUser, createNewUser, getUsers, sendEmail } = require('../services')
+const { authenticateUser, createUser, getUsers, sendEmail } = require('../services/users')
 
 const showUsers = async (req = request, res = response) => {
   try {
@@ -40,7 +40,7 @@ const createUser = async (req = request, res = response) => {
   }
 
   try {
-    const newUser = await createNewUser({person: person})
+    const newUser = await createUser({person: person})
     if (!newUser) {
       const err = 'Email user already exist, plese go to log in.'
       return res.render('error', {error: err})
