@@ -87,6 +87,10 @@ const logIn = async (req = request, res = response) => {
   }
 }
 
+const logOut = async (req = request, res = response) => {
+  res.clearCookie('auth-token').render('index')
+}
+
 export {
   showUsers,
   createNewUser,
@@ -95,5 +99,6 @@ export {
   renderFormJoinNow,
   renderFormLogIn,
   renderFormAccount,
-  logIn
+  logIn,
+  logOut
 }

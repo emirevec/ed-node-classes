@@ -22,7 +22,8 @@ import {
   renderFormJoinNow,
   renderFormLogIn,
   renderFormAccount,
-  logIn
+  logIn,
+  logOut
 } from '../controllers/userControllers.js'
 
 const router = express.Router()
@@ -69,6 +70,14 @@ router.get('/login', renderFormLogIn)
  * @param {calback} logIn - Controller to log in a user.
  */
 router.post('/login', validateUserLogInData(), logIn)
+
+/**
+ * Route for closing user's session.
+ * @name post/login
+ * @param {string} path
+ * @param {calback} logOut - Controller to close the user's session.
+ */
+router.post('/logout', logOut)
 
 /**
  * Route serving user information account.
