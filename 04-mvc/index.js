@@ -1,7 +1,7 @@
-const express = require('express')
-const morgan = require('morgan')
-const hbs = require('hbs')
-const { productRouter, userRouter } = require('./routers')
+import express from 'express'
+import morgan from 'morgan'
+import hbs from 'hbs'
+import { productRouter, userRouter } from './routers/index.js'
 //const addRequestLog = require('./middlewares')
 
 const app = express()
@@ -14,8 +14,8 @@ app.use(express.static('public'))
 app.use(morgan('dev'))
 
 app.set('view engine', 'hbs')
-app.set('views', './views')
-hbs.registerPartials(__dirname + '/views/partials')
+app.set('views', 'views')
+hbs.registerPartials('views/partials')
 
 app.use('/user', userRouter)
 app.use('/product', productRouter)
@@ -28,4 +28,4 @@ app.get('*', (req, res) => {
   res.render('error')
 })
 
-module.exports = app
+export default app

@@ -1,6 +1,6 @@
-const { request, response } = require('express')
-const { validationResult } = require('express-validator')
-const { authenticateUser, createUser, getUsers, sendEmail } = require('../services/users')
+import { request, response } from 'express'
+import { validationResult } from 'express-validator'
+import { authenticateUser, createUser, getUsers, sendEmail } from '../services/users/index.js'
 
 const showUsers = async (req = request, res = response) => {
   try {
@@ -25,7 +25,7 @@ const renderFormAccount = (req = request, res = response) => {
   res.render('./user/myAccount')
 }
 
-const createUser = async (req = request, res = response) => {
+const createNewUser = async (req = request, res = response) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     const err = "You've entered an invalid data, please check it and do it again."
@@ -78,7 +78,7 @@ const logIn = async (req = request, res = response) => {
     const { email, password } = req.body
     const {user, token} = await authenticateUser({email, password})
 
-    res.header('auth-token', token).render('./product/formProduct')
+    res.cookie('auth-token', token).render('./product/formProduct')
 
   } catch (error) {
     console.error(error.message)  
@@ -87,9 +87,9 @@ const logIn = async (req = request, res = response) => {
   }
 }
 
-module.exports = {
+export {
   showUsers,
-  createUser,
+  createNewUser,
   updateUser,
   deleteUser,
   renderFormJoinNow,

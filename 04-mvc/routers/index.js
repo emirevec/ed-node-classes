@@ -1,7 +1,7 @@
-const userRouter = require('./userRouter')
-const productRouter = require('./productRouter')
+import userRouter from './userRouter.js'
+import productRouter from './productRouter.js'
 
-module.exports ={
+export {
   userRouter,
   productRouter
 }

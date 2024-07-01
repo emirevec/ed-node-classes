@@ -1,9 +1,10 @@
-const Product = require('../models/productModel')
+import Product from '../../models/productModel.js'
 
-const getProducts = async (id) => {
+const getProducts = async ({id}) => {
   try {
     if (!id) {
       const products = await Product.find({})
+      console.log(products)
       return products
     } else {
       const filteredProduct = await Product.findById({_id: id})
@@ -14,4 +15,4 @@ const getProducts = async (id) => {
   }
 }
 
-module.exports = getProducts
+export default getProducts

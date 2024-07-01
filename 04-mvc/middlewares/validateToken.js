@@ -1,5 +1,6 @@
-const jwt = require('jsonwebtoken')
-const dotenv = require('dotenv')
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
 dotenv.config()
 
 const validateToken = async (req, res, next) => {
@@ -20,4 +21,4 @@ const validateToken = async (req, res, next) => {
   }
 }
 
-module.exports = validateToken
+export default validateToken

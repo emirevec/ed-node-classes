@@ -2,25 +2,25 @@
  * Express router providing product related routes.
  * @module routers/product
  */
-const express = require('express')
+import express from 'express'
 const router = express.Router()
 
 /** 
  * Product middlewares.
  * @const
  */
-const { validateToken } = require('../middlewares')
+import { validateToken } from '../middlewares/index.js'
 
 /**
  * Product controller methods.
  * @const
  */
-const {
+import {
   renderFormProduct,
   renderProductDetail,
   renderProductsList,
   registerProduct
-} = require('../controllers/productControllers')
+} from '../controllers/productControllers.js'
 
 /**
  * Route serving products list.
@@ -60,4 +60,4 @@ router.post('/formproduct', registerProduct)
  * @todo Create the routes and set the controllers.
  */
 
-module.exports = router
+export default router

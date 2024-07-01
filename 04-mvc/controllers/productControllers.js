@@ -1,6 +1,5 @@
-const { request, response } = require('express')
-const { createProduct, getProducts} = require('../services/products')
-
+import { request, response } from 'express'
+import { createProduct, getProducts } from '../services/products/index.js'
 
 const renderFormProduct = (req = request, res = response) => {
   const user = req.user
@@ -13,7 +12,7 @@ const renderFormProduct = (req = request, res = response) => {
 
 const renderProductsList = async (req = request, res = response) => {
   try {
-    const products = await getProducts()
+    const products = await getProducts({})
     return res.render('product/cardProducts', {product: products})
   } catch (error) {
     console.error(error.message)
@@ -21,7 +20,6 @@ const renderProductsList = async (req = request, res = response) => {
     return res.render('error', {error: err})
   }
 }
-
 
 const renderProductDetail = async (req = request, res = response) => {
   const id = req.params._id
@@ -61,7 +59,7 @@ const registerProduct = async (req = request, res = response) => {
 
 }
 
-module.exports = {
+export {
   renderFormProduct,
   renderProductDetail,
   renderProductsList,

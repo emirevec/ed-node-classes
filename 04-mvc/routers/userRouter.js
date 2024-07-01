@@ -2,28 +2,30 @@
  * Express router providing user related routes.
  * @module routers/user
  */
-const router = require('express').Router()
+import express from 'express'
 
 /**
  * Middleware for validating user login data.
  * @const
  */
-const { validateUserLogInData } = require('../middlewares')
+import { validateUserLogInData } from '../middlewares/index.js'
 
 /**
  * User controller methods.
  * @const
  */
-const { 
+import { 
   showUsers,
-  createUser,
+  createNewUser,
   updateUser,
   deleteUser,
   renderFormJoinNow,
   renderFormLogIn,
   renderFormAccount,
   logIn
-} = require('../controllers/userControllers')
+} from '../controllers/userControllers.js'
+
+const router = express.Router()
 
 /**
  * Route serving list of all users.
@@ -49,7 +51,7 @@ router.get('/joinnow', renderFormJoinNow)
  * @param {callback} validateUserLogInData - Middleware to validate the user's input data.
  * @param {callback} createUser - Controller to create a new user.
  */
-router.post('/joinnow', validateUserLogInData(), createUser)
+router.post('/joinnow', validateUserLogInData(), createNewUser)
 
 /**
  * Route serving log in form.
@@ -83,4 +85,4 @@ router.get('/account', renderFormAccount)
 router.put('/account', updateUser)
 router.delete('/account', deleteUser)
 
-module.exports = router
+export default router

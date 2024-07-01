@@ -1,5 +1,5 @@
-const User = require('../models/userModel')
-const bcrypt = require('bcrypt')
+import User from '../../models/userModel.js'
+import bcrypt from 'bcrypt'
 
 /**
  * Creates a new user.
@@ -39,4 +39,4 @@ const createNewUser = async ({person: person}) => {
   }
 }
 
-module.exports = createNewUser 
+export default createNewUser 

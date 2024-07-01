@@ -4,8 +4,9 @@
 * @description This service is responsible for sending emails using Nodemailer.
 */
 
-const nodemailer = require("nodemailer")
-const dotenv = require('dotenv')
+import nodemailer from "nodemailer"
+import dotenv from 'dotenv'
+
 dotenv.config()
 
 const GMAIL_PASS = process.env.GMAIL_PASS
@@ -48,4 +49,4 @@ async function sendEmail(name, email) {
   }
 }
 
-module.exports = sendEmail
+export default sendEmail

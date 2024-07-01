@@ -1,7 +1,7 @@
-const createProduct = require('./createProduct')
-const getProducts = require('./createProduct')
+import createProduct from './createProduct.js'
+import getProducts from './createProduct.js'
 
-module.exports = {
+export {
   createProduct,
   getProducts
 }

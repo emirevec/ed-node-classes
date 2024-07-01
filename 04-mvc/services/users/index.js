@@ -1,9 +1,9 @@
-const authenticateUser = require('./authenticateUser')
-const createUser = require('./createUser')
-const getUsers = require('./getUsers')
-const sendEmail = require('./sendEmail')
+import authenticateUser from './authenticateUser.js'
+import createUser from './createUser.js'
+import getUsers from './getUsers.js'
+import sendEmail from './sendEmail.js'
 
-module.exports = {
+export {
   authenticateUser,
   createUser,
   getUsers,

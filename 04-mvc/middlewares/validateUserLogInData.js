@@ -1,4 +1,4 @@
-const { check } = require('express-validator')
+import { check } from 'express-validator'
 
 const validateUserLogInData = () => {
   return [
@@ -7,4 +7,4 @@ const validateUserLogInData = () => {
   ]
 }
 
-module.exports = validateUserLogInData
+export default validateUserLogInData

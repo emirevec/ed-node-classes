@@ -1,8 +1,8 @@
-const addRequestLog = require('./addRequestLog')
-const validateUserLogInData = require('./validateUserLogInData')
-const validateToken = require('./validateToken')
+import addRequestLog from './addRequestLog.js'
+import validateUserLogInData from './validateUserLogInData.js'
+import validateToken from './validateToken.js'
 
-module.exports = {
+export {
   addRequestLog,
   validateUserLogInData,
   validateToken
