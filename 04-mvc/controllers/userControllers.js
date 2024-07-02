@@ -1,6 +1,6 @@
 import { request, response } from 'express'
 import { validationResult } from 'express-validator'
-import { authenticateUser, createUser, getUsers, sendEmail, updateUser } from '../services/users/index.js'
+import { authenticateUser, createUser, deleteUser, getUsers, sendEmail, updateUser } from '../services/users/index.js'
 
 const showUsers = async (req = request, res = response) => {
   try {
@@ -87,10 +87,25 @@ const updateUserAccount = async (req = request, res = response) => {
   }
 }
 
-const deleteUser = (req = request, res = response) => {
-  res.json({
-    eliminado: 'Data deleted'
-  })
+const deleteUserAccount = async (req = request, res = response) => {
+  const userLogged = req.user
+  if (userLogged) {
+    try {
+      const userDeleted = await deleteUser({id: userLogged})
+      console.log(userDeleted)
+      if (userDeleted) {
+        res.clearCookie('auth-token').render('./user/myAccount',{message: 'User was successfully deleted.'})
+      } else {
+        res.render('error', {error: 'Cannot delete user account, we want you here.'})
+      }
+    } catch (error) {
+      console.error(error.message)
+      const err = "An error has occurred when trying to delet user's account"
+      return res.render('error', {error: err})
+    }
+  } else {
+    res.render('./user/login')
+  }
 }
 
 const logIn = async (req = request, res = response) => {
@@ -104,11 +119,16 @@ const logIn = async (req = request, res = response) => {
     const { email, password } = req.body
     const {user, token} = await authenticateUser({email, password})
 
-    res.cookie('auth-token', token).render('./product/formProduct')
+    res.cookie('auth-token', token, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000,
+      path: '/'
+      }
+    ).render('./product/formProduct')
 
   } catch (error) {
     console.error(error.message)  
-    const err = 'An error has occurred when trying to sing in. May be email, password or both are incorrect!!'
+    const err = 'An error has occurred when trying to log in. May be email, password or both are incorrect!!'
     return res.render('error', { error: err })
   }
 }
@@ -121,7 +141,7 @@ export {
   showUsers,
   createNewUser,
   updateUserAccount,
-  deleteUser,
+  deleteUserAccount,
   renderFormJoinNow,
   renderFormLogIn,
   renderFormAccount,

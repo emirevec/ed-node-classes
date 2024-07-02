@@ -18,7 +18,7 @@ import {
   showUsers,
   createNewUser,
   updateUserAccount,
-  deleteUser,
+  deleteUserAccount,
   renderFormJoinNow,
   renderFormLogIn,
   renderFormAccount,
@@ -88,11 +88,19 @@ router.post('/logout', logOut)
 router.get('/account', validateToken, renderFormAccount)
 
 /**
- * Route for updating and deleting user's information.
- * @todo Create the flow of views and controller functions.
- * @todo Update the cookie's options when are created.
+ * Route for update user information.
+ * @name post/account
+ * @param {string} path
+ * @param {callback} updateUserAccount - Controller to update the user's information account into the database.
  */
 router.post('/account', validateToken, updateUserAccount)
-router.delete('/account', deleteUser)
+
+/**
+ * Route for delete user information.
+ * @name delete/account
+ * @param {string} path
+ * @param {callback} deleteUserAccount - Controller to delet the complete user's account from the database.
+ */
+router.delete('/account', validateToken, deleteUserAccount)
 
 export default router
