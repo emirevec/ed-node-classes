@@ -56,7 +56,6 @@ const registerProduct = async (req = request, res = response) => {
     const err = 'An error has occurred when trying to add the product.'
     return res.render('error', {error: err})
   }
-
 }
 
 export {

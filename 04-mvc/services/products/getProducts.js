@@ -4,7 +4,6 @@ const getProducts = async ({id}) => {
   try {
     if (!id) {
       const products = await Product.find({})
-      console.log(products)
       return products
     } else {
       const filteredProduct = await Product.findById({_id: id})
