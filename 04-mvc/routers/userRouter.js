@@ -8,7 +8,7 @@ import express from 'express'
  * Middleware for validating user login data.
  * @const
  */
-import { validateUserLogInData } from '../middlewares/index.js'
+import { validateToken, validateUserLogInData } from '../middlewares/index.js'
 
 /**
  * User controller methods.
@@ -17,7 +17,7 @@ import { validateUserLogInData } from '../middlewares/index.js'
 import { 
   showUsers,
   createNewUser,
-  updateUser,
+  updateUserAccount,
   deleteUser,
   renderFormJoinNow,
   renderFormLogIn,
@@ -85,13 +85,14 @@ router.post('/logout', logOut)
  * @param {string} path
  * @param {callback} renderFormAccount - Controller to render user information account.
  */
-router.get('/account', renderFormAccount)
+router.get('/account', validateToken, renderFormAccount)
 
 /**
  * Route for updating and deleting user's information.
  * @todo Create the flow of views and controller functions.
+ * @todo Update the cookie's options when are created.
  */
-router.put('/account', validateUserLogInData(), validateToken, updateUser)
+router.post('/account', validateToken, updateUserAccount)
 router.delete('/account', deleteUser)
 
 export default router

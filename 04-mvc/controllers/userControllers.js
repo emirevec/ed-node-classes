@@ -1,6 +1,6 @@
 import { request, response } from 'express'
 import { validationResult } from 'express-validator'
-import { authenticateUser, createUser, getUsers, sendEmail } from '../services/users/index.js'
+import { authenticateUser, createUser, getUsers, sendEmail, updateUser } from '../services/users/index.js'
 
 const showUsers = async (req = request, res = response) => {
   try {
@@ -21,8 +21,19 @@ const renderFormLogIn = (req = request, res = response) => {
   res.render('./user/login')
 }
 
-const renderFormAccount = (req = request, res = response) => {
-  res.render('./user/myAccount')
+const renderFormAccount = async (req = request, res = response) => {
+  const userLogged = req.user
+  try {
+    if (userLogged) {
+      const user = await getUsers({id: userLogged})
+      res.render('./user/myAccount', {user: user})
+    } else {
+      res.render('./user/login')
+    }
+  } catch (error) {
+    const err = 'Error from renderFormAccount'
+    return res.render('error', {error: err})
+  }
 }
 
 const createNewUser = async (req = request, res = response) => {
@@ -55,20 +66,14 @@ const createNewUser = async (req = request, res = response) => {
   }
 } 
 
-const updateUser = async (req = request, res = response) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    const err = "You've entered an invalid data, please check it and do it again."
-    return res.render('error', {error: err})
-  }
-
+const updateUserAccount = async (req = request, res = response) => {
   const userLogged = req.user
   if (userLogged) {
     const { name, email } = req.body
     try {
       const userUpdated = await updateUser({name, email})
       if (userUpdated) {
-        res.render('myAccount',{message: 'User name successfully updated.'})
+        res.render('./user/myAccount',{message: 'User name successfully updated.', user: userUpdated})
       } else {
         res.render('error', {error: 'Cannot update user, please check your data and try again.'})
       }
@@ -115,7 +120,7 @@ const logOut = async (req = request, res = response) => {
 export {
   showUsers,
   createNewUser,
-  updateUser,
+  updateUserAccount,
   deleteUser,
   renderFormJoinNow,
   renderFormLogIn,

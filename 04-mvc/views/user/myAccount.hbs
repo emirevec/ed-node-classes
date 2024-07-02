@@ -8,14 +8,14 @@
     <div class="alert alert-success w-25">{{ message }}</div>    
 {{/if}}
 <div class="container mt-5">
-    <form method="put" action="user/account">
+    <form method="post" action="/user/account">
         <div class="mb-3">
             <label for="name" class="form-label">Name: </label>
-            <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email: </label>
-            <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}"aria-describedby="emailHelp">
         </div>
         <div class="mb-3 text-center ">
             <button type="submit" class="btn btn-success w-25">Update</button>

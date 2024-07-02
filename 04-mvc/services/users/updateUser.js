@@ -1,13 +1,12 @@
-const User = require('../../models/userModel')
+import User from '../../models/userModel.js'
 
 const updateUser = async ({name, email}) => {
   try {
-    const userUpdated = await User.findOneAndUpdate({email: email}, {name: name})
-    console.log(userUpdated)
+    const userUpdated = await User.findOneAndUpdate({email: email}, {name: name}, {new: true})
     return userUpdated
   } catch (error) {
     console.error(error.message)
   }
 }
 
-module.exports = updateUser
+export default updateUser

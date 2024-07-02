@@ -15,7 +15,7 @@ const authenticateUser = async ({ email, password }) => {
     }
     const signature = process.env.JWT_SECRET
     const token = jwt.sign({
-      name: user.name
+      id: user._id
       },
       signature,
       {
