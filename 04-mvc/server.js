@@ -1,18 +1,19 @@
 /**
- * @fileoverview Main server file.
- * Initializes environment variables, sets up the database connection, and starts the Express server.
+ * @file server.js
+ * @description Initializes environment variables, sets up the database connection, and starts the Express server.
  */
+
+/** Import Statements. */
 import dotenv from 'dotenv'
 import app from './index.js'
+
+/** Import the database and sets up the connection. */
 import connection from './database/connection.js'
 
-// Load environment variables from .env file.
+/** Load environment variables from .env file. */
 dotenv.config()
 
-/**
- * The port number on which the server listens.
- * @const {number|string}
- */
+/** The port number on which the server listens. */
 const PORT = process.env.PORT || 9000
 
 /**
