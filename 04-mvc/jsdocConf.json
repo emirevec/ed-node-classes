@@ -1,0 +1,22 @@
+{
+  "source": {
+    "include": ["./"],
+    "exclude": ["./node_modules"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "opts": {
+    "destination": "./docs",
+    "template": "node_modules/docdash",
+    "recurse": true
+  },
+  "docdash": {
+    "sort": true,
+    "search": true,
+    "collapse": false
+  },
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  }
+}
