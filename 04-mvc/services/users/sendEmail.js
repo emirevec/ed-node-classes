@@ -1,7 +1,7 @@
 /**
 *
-* @file sendEmial.js
-* @description This service is responsible for sending emails using Nodemailer.
+* sendEmial.js
+* This service is responsible for sending emails using Nodemailer.
 */
 
 import nodemailer from "nodemailer"
