@@ -1,18 +1,27 @@
 /**
- * Express router providing product related routes.
- * @module routers/product
+ * @file productRouter.js
+ * @description Express router providing product related routes.
  */
+
+/** Import statments. */
 import express from 'express'
-const router = express.Router()
 
-
+/** Import validating user login data middlewares. */
 import { validateToken } from '../middlewares/index.js'
+
+/** Import product controller methods. */
 import {
   renderFormProduct,
   renderProductDetail,
   renderProductsList,
   registerProduct
 } from '../controllers/productControllers.js'
+
+/** 
+ * Define Express router. 
+ * @module routers/product
+ * */
+const router = express.Router()
 
 /**
  * Route serving products list.

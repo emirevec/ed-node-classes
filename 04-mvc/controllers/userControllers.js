@@ -1,7 +1,20 @@
+/**
+ * @file userControllers.js
+ * @description Contains the controller functions for managing user-related views and operations in the application. 
+ */
+
+/** Import statements. */
 import { request, response } from 'express'
 import { validationResult } from 'express-validator'
+
+/** Import user's services. */
 import { authenticateUser, createUser, deleteUser, getUsers, sendEmail, updateUser } from '../services/users/index.js'
 
+/** 
+ * @module controllers/user
+ */
+
+/** Handler rendering user's list. @function */
 const showUsers = async (req = request, res = response) => {
   try {
     const users = await getUsers({})
@@ -13,14 +26,17 @@ const showUsers = async (req = request, res = response) => {
   }
 }
 
+/** Handler rendering user's "join" form. @function */
 const renderFormJoinNow = (req = request, res = response) => {
   res.render('./user/joinNow')
 }
 
+/** Handler rendering user's "log in" form. @function */
 const renderFormLogIn = (req = request, res = response) => {
   res.render('./user/login')
 }
 
+/** Handler rendering user's "account information" form. @function */
 const renderFormAccount = async (req = request, res = response) => {
   const userLogged = req.user
   try {
@@ -36,6 +52,7 @@ const renderFormAccount = async (req = request, res = response) => {
   }
 }
 
+/** Handler for registering new users. @function */
 const createNewUser = async (req = request, res = response) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -66,6 +83,7 @@ const createNewUser = async (req = request, res = response) => {
   }
 } 
 
+/** Handler for updating user's information. @function */
 const updateUserAccount = async (req = request, res = response) => {
   const userLogged = req.user
   if (userLogged) {
@@ -87,6 +105,7 @@ const updateUserAccount = async (req = request, res = response) => {
   }
 }
 
+/** Handler for deleting user's account. @function */
 const deleteUserAccount = async (req = request, res = response) => {
   const userLogged = req.user
   if (userLogged) {
@@ -108,6 +127,7 @@ const deleteUserAccount = async (req = request, res = response) => {
   }
 }
 
+/** Handler for users loging in. @function */
 const logIn = async (req = request, res = response) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -133,6 +153,7 @@ const logIn = async (req = request, res = response) => {
   }
 }
 
+/** Handler for users loging out. @function */
 const logOut = async (req = request, res = response) => {
   res.clearCookie('auth-token').render('index')
 }

@@ -1,19 +1,15 @@
 /**
- * Express router providing user related routes.
- * @module routers/user
- */
+ * @file userRouter.js
+ * @description Express router providing user related routes.
+*/
+
+/** Import statments. */
 import express from 'express'
 
-/**
- * Middleware for validating user login data.
- * @const
- */
+/** Import validating user login data middlewares. */
 import { validateToken, validateUserLogInData } from '../middlewares/index.js'
 
-/**
- * User controller methods.
- * @const
- */
+/** Import user controller methods. */
 import { 
   showUsers,
   createNewUser,
@@ -26,11 +22,15 @@ import {
   logOut
 } from '../controllers/userControllers.js'
 
+/**
+ * Define Express router. 
+ * @module routers/user 
+*/
 const router = express.Router()
 
 /**
  * Route serving list of all users.
- * @name get/
+ * @method get/
  * @param {string} path
  * @param {callback} getUsers - Controller to get all users.
  * @todo add access control.
@@ -39,7 +39,7 @@ router.get('/', showUsers)
 
 /**
  * Route serving join now form.
- * @name get/joinnow
+ * @method get/joinnow
  * @param {string} path
  * @param {callback} renderFormJoinNow - Controller to render the join now form.
  */
@@ -47,7 +47,7 @@ router.get('/joinnow', renderFormJoinNow)
 
 /**
  * Route for creating a new user.
- * @name post/joinnow
+ * @method post/joinnow
  * @param {string} path 
  * @param {callback} validateUserLogInData - Middleware to validate the user's input data.
  * @param {callback} createUser - Controller to create a new user.
@@ -56,7 +56,7 @@ router.post('/joinnow', validateUserLogInData(), createNewUser)
 
 /**
  * Route serving log in form.
- * @name get/login
+ * @method get/login
  * @param {string} path
  * @param {callback} renderFormLogIn - Controller to render the log in form.
  */
@@ -64,7 +64,7 @@ router.get('/login', renderFormLogIn)
 
 /**
  * Route for loggin in a user.
- * @name post/login
+ * @method post/login
  * @param {string} path
  * @param {callback} validateUserLogInData - Middleware to validate the user's input data.
  * @param {calback} logIn - Controller to log in a user.
@@ -73,7 +73,7 @@ router.post('/login', validateUserLogInData(), logIn)
 
 /**
  * Route for closing user's session.
- * @name post/login
+ * @method post/login
  * @param {string} path
  * @param {calback} logOut - Controller to close the user's session.
  */
@@ -81,7 +81,7 @@ router.post('/logout', logOut)
 
 /**
  * Route serving user information account.
- * @name get/account
+ * @method get/account
  * @param {string} path
  * @param {callback} renderFormAccount - Controller to render user information account.
  */
@@ -89,7 +89,7 @@ router.get('/account', validateToken, renderFormAccount)
 
 /**
  * Route for update user information.
- * @name post/account
+ * @method post/account
  * @param {string} path
  * @param {callback} updateUserAccount - Controller to update the user's information account into the database.
  */
@@ -97,9 +97,9 @@ router.post('/account', validateToken, updateUserAccount)
 
 /**
  * Route for delete user information.
- * @name delete/account
+ * @method delete/account
  * @param {string} path
- * @param {callback} deleteUserAccount - Controller to delet the complete user's account from the database.
+ * @param {callback} deleteUserAccount - Controller to delete the complete user's account from the database.
  */
 router.delete('/account', validateToken, deleteUserAccount)
 

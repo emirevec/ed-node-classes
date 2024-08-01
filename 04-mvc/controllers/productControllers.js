@@ -1,6 +1,19 @@
+/**
+ * @file prodcutControllers.js
+ * @description Contains the controller functions for managing product-related views and operations in the application. 
+ */
+
+/** Import statements. */
 import { request, response } from 'express'
+
+/** Import product's services. */
 import { createProduct, getProducts } from '../services/products/index.js'
 
+/** 
+ * @module controllers/product
+*/
+
+/** Handler rendering product's form. @method */
 const renderFormProduct = (req = request, res = response) => {
   const user = req.user
   if (user) {
@@ -10,6 +23,7 @@ const renderFormProduct = (req = request, res = response) => {
   }
 }
 
+/** Handler for displaying product's list. @method */
 const renderProductsList = async (req = request, res = response) => {
   try {
     const products = await getProducts({})
@@ -21,6 +35,7 @@ const renderProductsList = async (req = request, res = response) => {
   }
 }
 
+/** Handler for displaying product's details. @method */
 const renderProductDetail = async (req = request, res = response) => {
   const id = req.params._id
   try {
@@ -33,6 +48,7 @@ const renderProductDetail = async (req = request, res = response) => {
   }
 }
 
+/** Handler for registering new products. @method */
 const registerProduct = async (req = request, res = response) => {
   const { name, price, image, description } = req.body
   const product = {
