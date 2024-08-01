@@ -7,7 +7,7 @@
 import { request, response } from 'express'
 
 /** Import product's services. */
-import { createProduct, getProducts } from '../services/products/index.js'
+import ProductService from '../services/productService.js'
 
 /** 
  * @module controllers/product
@@ -26,7 +26,7 @@ const renderFormProduct = (req = request, res = response) => {
 /** Handler for displaying product's list. @method */
 const renderProductsList = async (req = request, res = response) => {
   try {
-    const products = await getProducts({})
+    const products = await ProductService.getProducts({})
     return res.render('product/cardProducts', {product: products})
   } catch (error) {
     console.error(error.message)
@@ -39,7 +39,7 @@ const renderProductsList = async (req = request, res = response) => {
 const renderProductDetail = async (req = request, res = response) => {
   const id = req.params._id
   try {
-    const product = await getProducts(id)
+    const product = await ProductService.getProducts(id)
     return res.render('product/detailProduct', {product: product})
   } catch (error) {
   console.error(error.message)
@@ -59,7 +59,7 @@ const registerProduct = async (req = request, res = response) => {
   }
 
   try {
-    const productRegistered = await createProduct({product})
+    const productRegistered = await ProductService.createProduct({product})
 
     if (productRegistered) {
       return res.render('./product/formProduct', {message: 'The new product has been succesfully added!'})
