@@ -61,6 +61,6 @@ router.post('/formproduct', registerProduct)
  * @method post/deleteproduct
  * @todo Create the routes and set the controllers.
  */
-router.post('/deleteproduct', callback)
+router.post('/deleteproduct', ()=>{})
 
 export default router
