@@ -8,7 +8,8 @@ import { request, response } from 'express'
 import { validationResult } from 'express-validator'
 
 /** Import user's services. */
-import { authenticateUser, createUser, deleteUser, getUsers, sendEmail, updateUser } from '../services/users/index.js'
+import UserService from '../services/UserService.js'
+import { authenticateUser, sendEmail} from '../services/users/index.js'
 
 /** 
  * @module controllers/user
@@ -17,7 +18,7 @@ import { authenticateUser, createUser, deleteUser, getUsers, sendEmail, updateUs
 /** Handler rendering user's list. @function */
 const showUsers = async (req = request, res = response) => {
   try {
-    const users = await getUsers({})
+    const users = await UserService.getUsers({})
     res.render('./user/usersList', {user: users})
   } catch (error) {
     console.error(error)
@@ -41,7 +42,7 @@ const renderFormAccount = async (req = request, res = response) => {
   const userLogged = req.user
   try {
     if (userLogged) {
-      const user = await getUsers({id: userLogged})
+      const user = await UserService.getUsers({id: userLogged})
       res.render('./user/myAccount', {user: user})
     } else {
       res.render('./user/login')
@@ -68,7 +69,7 @@ const createNewUser = async (req = request, res = response) => {
   }
 
   try {
-    const newUser = await createUser({person: person})
+    const newUser = await UserService.createNewUser({person: person})
     if (!newUser) {
       const err = 'Email user already exist, plese go to log in.'
       return res.render('error', {error: err})
@@ -89,7 +90,7 @@ const updateUserAccount = async (req = request, res = response) => {
   if (userLogged) {
     const { name, email } = req.body
     try {
-      const userUpdated = await updateUser({name, email})
+      const userUpdated = await UserService.updateUser({name, email})
       if (userUpdated) {
         res.render('./user/myAccount',{message: 'User name successfully updated.', user: userUpdated})
       } else {
@@ -110,7 +111,7 @@ const deleteUserAccount = async (req = request, res = response) => {
   const userLogged = req.user
   if (userLogged) {
     try {
-      const userDeleted = await deleteUser({id: userLogged})
+      const userDeleted = await UserService.deleteUser({id: userLogged})
       console.log(userDeleted)
       if (userDeleted) {
         res.clearCookie('auth-token').render('./user/myAccount',{message: 'User was successfully deleted.'})
