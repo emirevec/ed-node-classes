@@ -1,10 +1,26 @@
+/**
+ * @file authenticateUser.js
+ * @description Provides a service function for users authenticating.
+ */
+
+/** Import user's model. */
 import User from '../../models/userModel.js'
+
+/** Import library statments. */
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
+/** Load environment variables from .env file. */
 dotenv.config()
 
+/**
+ * Authenticates a user with the given email and password.
+ * @param {Object} credentials - The credentials for authentication.
+ * @param {string} credentials.email - The email of the user.
+ * @param {string} credentials.password - The password of the user.
+ * @returns {Promise<Object>} - An object containing the authenticated user and a JWT token.
+ */
 const authenticateUser = async ({ email, password }) => {
   try {
     const user = await User.findOne({email})

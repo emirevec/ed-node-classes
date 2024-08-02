@@ -1,16 +1,17 @@
 /**
-*
-* sendEmial.js
-* This service is responsible for sending emails using Nodemailer.
+* @file sendEmial.js
+* @description This service is responsible for sending emails using Nodemailer.
 */
 
+/** Import library statments. */
 import nodemailer from "nodemailer"
 import dotenv from 'dotenv'
 
+/** Load environment variables from .env file. */
 dotenv.config()
 
+/** Sets up the Nodemailer transporter for sending emails using Gmail. */
 const GMAIL_PASS = process.env.GMAIL_PASS
-
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
