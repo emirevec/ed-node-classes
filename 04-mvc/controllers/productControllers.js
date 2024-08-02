@@ -7,7 +7,7 @@
 import { request, response } from 'express'
 
 /** Import product's services. */
-import ProductService from '../services/productService.js'
+import ProductService from '../services/ProductService.js'
 
 /** 
  * @module controllers/product

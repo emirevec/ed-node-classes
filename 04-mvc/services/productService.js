@@ -1,5 +1,5 @@
 /**
- * @file productService.js
+ * @file AroductService.js
  * @description Provides service functions for handling product-related operations.
  */
 
@@ -17,7 +17,7 @@ class ProductService {
    * @param {Object} options.product - The product data to be saved.
    * @returns {Promise<Object|null>} The saved product object if successful, otherwise null.
    */
-  static async createProduct ({product}){
+  static async createProduct({product}){
     console.log("Hello I'm createProduct")
     const newProduct = new Product(product)
     try {
