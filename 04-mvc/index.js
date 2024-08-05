@@ -9,6 +9,8 @@ import morgan from 'morgan'
 import hbs from 'hbs'
 import { productRouter, userRouter } from './routers/index.js'
 import cookieParser from 'cookie-parser'
+import passport from 'passport'
+import expressSession from 'express-session'
 //const addRequestLog = require('./middlewares')
 
 /**
@@ -26,6 +28,9 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 app.use(cookieParser())
 app.use(morgan('dev'))
+app.use(expressSession({ secret: 'mySecretKey', resave: false, saveUninitialized: false }))
+app.use(passport.initialize())
+app.use(passport.session())
 
 /**
  * View engine set up.
