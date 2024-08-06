@@ -1,5 +1,5 @@
 import passport from 'passport'
-import User from './models/userModel.js'
+import User from '../../models/userModel.js'
 import logIn from './login.js'
 
 logIn(passport)
@@ -12,6 +12,5 @@ passport.deserializeUser(function (id, done) {
   done(err, user)
   })
 })
-
 
 export default passport

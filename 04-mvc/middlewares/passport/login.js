@@ -1,7 +1,6 @@
 import User from '../../models/userModel.js'
 import bcrypt from 'bcrypt'
-import passport from 'passport-local'
-const LocalStrategy = passport.Strategy
+import { Strategy as LocalStrategy } from 'passport-local'
 
 function logIn(passport) {
   passport.use('login', new LocalStrategy(
