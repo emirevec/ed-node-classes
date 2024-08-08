@@ -28,6 +28,8 @@ import {
 */
 const router = express.Router()
 
+export default function(passport){
+
   /**
    * Route serving list of all users.
    * @method get/
@@ -69,7 +71,11 @@ const router = express.Router()
    * @param {callback} validateUserLogInData - Middleware to validate the user's input data.
    * @param {calback} logIn - Controller to log in a user.
    */
-  router.post('/login', validateUserLogInData(), logIn)
+  router.post('/login', passport.authenticate('login', {
+    successRedirect: './product/formProduct',
+    failureRedirect: '/',}))
+  
+  //validateUserLogInData(), logIn)
 
   /**
    * Route for closing user's session.
@@ -103,4 +109,7 @@ const router = express.Router()
    */
   router.delete('/account', validateToken, deleteUserAccount)
 
-export default router
+  return router
+}
+
+

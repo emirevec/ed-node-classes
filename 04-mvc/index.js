@@ -10,7 +10,7 @@ import hbs from 'hbs'
 import { productRouter, userRouter } from './routers/index.js'
 import cookieParser from 'cookie-parser'
 import expressSession from 'express-session'
-//import passport from './middlewares/passport/passportConfig.js'
+import passport from './middlewares/passport/passportConfig.js'
 //const addRequestLog = require('./middlewares')
 
 /**
@@ -28,6 +28,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 app.use(cookieParser())
 app.use(morgan('dev'))
+
 app.use(expressSession({ 
   secret: 'mySecretKey',
   resave: false,
@@ -35,8 +36,8 @@ app.use(expressSession({
 }))
 
 /** Configuring Passport */
-//app.use(passport.initialize())
-//app.use(passport.session())
+app.use(passport.initialize())
+app.use(passport.session())
 
 
 /**
@@ -49,7 +50,7 @@ hbs.registerPartials('views/partials')
 /**
  * Route Handlers set up.
  */
-app.use('/user', userRouter)
+app.use('/user', userRouter(passport))
 app.use('/product', productRouter)
 
 /**
