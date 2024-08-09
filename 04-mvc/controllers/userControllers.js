@@ -53,6 +53,11 @@ const renderFormAccount = async (req = request, res = response) => {
   }
 }
 
+/** Handler rendering product's upload form. @function */
+const renderFormProduct = async (req = request, res = response) => {
+  res.render('./product/formProduct')
+}
+
 /** Handler for registering new users. @function */
 const createNewUser = async (req = request, res = response) => {
   const errors = validationResult(req)
@@ -167,6 +172,7 @@ export {
   renderFormJoinNow,
   renderFormLogIn,
   renderFormAccount,
+  renderFormProduct,
   logIn,
   logOut
 }

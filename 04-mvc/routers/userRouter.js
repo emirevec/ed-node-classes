@@ -18,6 +18,7 @@ import {
   renderFormJoinNow,
   renderFormLogIn,
   renderFormAccount,
+  renderFormProduct,
   logIn,
   logOut
 } from '../controllers/userControllers.js'
@@ -71,9 +72,7 @@ export default function(passport){
    * @param {callback} validateUserLogInData - Middleware to validate the user's input data.
    * @param {calback} logIn - Controller to log in a user.
    */
-  router.post('/login', passport.authenticate('login', {
-    successRedirect: './product/formProduct',
-    failureRedirect: '/',}))
+  router.post('/login', passport.authenticate('login', {failureRedirect: '/',}), renderFormProduct)
   
   //validateUserLogInData(), logIn)
 
