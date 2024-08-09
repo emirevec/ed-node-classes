@@ -7,10 +7,15 @@ logIn(passport)
 passport.serializeUser(function (user, done) {
   done(null, user._id);
 })
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-  done(err, user)
-  })
+passport.deserializeUser( async function (id, done) {
+  try {
+    const user = await User.findById(id)
+    if(user){
+      return done(null, user)
+    }
+  } catch (error) {
+    return done(error, null)
+  }
 })
 
 export default passport
