@@ -2,8 +2,8 @@ import express from 'express'
 import * as http from 'http'
 import cors from 'cors'
 import debug from 'debug';
-import { CommonRoutesConfig } from './src/common/routes/common.routes.config';
-import { UsersRoutes } from './src/routes/users.routes';
+import { CommonRoutesConfig } from './common/routes/common.routes.config';
+import { UsersRoutes } from './routes/users.routes';
 
 const app: express.Application = express()
 const server: http.Server = http.createServer(app)
