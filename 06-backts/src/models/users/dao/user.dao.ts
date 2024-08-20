@@ -1,7 +1,7 @@
 import { CreateUserDto } from "../dto/create.user.dto"
 import { PatchUserDto } from "../dto/patch.user.dto"
 import { PutUserDto } from "../dto/put.user.dto"
-import { nanoid } from "nanoid"
+import shortid from 'shortid'
 import debug from "debug"
 
 const log: debug.IDebugger = debug('app:in-memory-dao')
@@ -14,7 +14,7 @@ class UserDao {
   }
 
   async addUser(user: CreateUserDto){
-    user.id = nanoid()
+    user.id = shortid.generate()
     this.users.push(user)
     return user.id
   }
