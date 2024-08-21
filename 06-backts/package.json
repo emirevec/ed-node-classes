@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "nodemon ./dist/app.js",
+    "docs":"npx typedoc",
     "start": ".\\node_modules\\.bin\\ts-node ./src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -34,6 +35,7 @@
     "@types/node": "^22.2.0",
     "@types/shortid": "^0.0.32",
     "morgan": "^1.10.0",
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "typedoc": "^0.26.6"
   }
 }
