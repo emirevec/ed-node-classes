@@ -4,7 +4,8 @@
  */
 
 /** Import user's model. */
-import User from '../models/userModel.js'
+//import User from '../models/userModel.js'
+import User from '../models/sequelize/userModelSequelize'
 
 /** Import statments. */
 import bcrypt from 'bcrypt'
@@ -24,19 +25,17 @@ class UserService {
    * @returns {Promise<Object|null>} - The created user object if successful, or null if the user already exists.
    */
   static async createNewUser({person: person}){
-    const newUser = new User(person)
-  
     try {
-      const userExist = await User.findOne({email: newUser.email})
+      const userExist = await User.findOne({where: {email: person.email}})
       if (userExist) {
         return null
       }
-  
+      
       const salt = await bcrypt.genSalt(10)
-      newUser.password = await bcrypt.hash(newUser.password, salt)
-      const newUserSaved = await newUser.save()
-      if (newUserSaved) {
-        return newUserSaved
+      person.password = await bcrypt.hash(person.password, salt)
+      const newUser = await User.create(person)
+      if (newUser) {
+        return newUser
       }
     } catch (error) {
       console.error(error.message)
@@ -53,10 +52,10 @@ class UserService {
   static async getUsers({id}){
     try {
       if (!id) {
-        const users = await User.find({})
+        const users = await User.findAll()
         return users
       } else {
-        const filteredUser = await User.findById({_id: id})
+        const filteredUser = await User.findByPk(id)
         return filteredUser
       }
     } catch (error) {
@@ -73,8 +72,13 @@ class UserService {
  */
   static async updateUser({name, email}){
     try {
-      const userUpdated = await User.findOneAndUpdate({email: email}, {name: name}, {new: true})
-      return userUpdated
+      const userExist = await User.findOne({where: {email: email}})
+      if(userExist){
+        userExist.name = name
+        const userUpdated = await userExist.save()
+        return userUpdated
+      }
+      return null
     } catch (error) {
       console.error(error.message)
     }
@@ -88,10 +92,13 @@ class UserService {
  */
   static async deleteUser({id}){
     try {
-      const deletedUser = await User.findByIdAndDelete(id)
+      const deletedUser = await User.destroy({where: {id}})
+      if(deletedUser){
       console.log("The user account was deleted")
       console.log(deletedUser)
-      return deletedUser
+      return true
+    }
+      return false
     } catch (error) {
       console.error(error)
       throw error
