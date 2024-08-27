@@ -3,21 +3,22 @@ import { Sequelize } from 'sequelize'
 
 dotenv.config()
 
-const AZURE_DB = process.env.AZURE_DB
-const AZURE_USER_NAME = process.env.AZURE_USER_NAME
-const AZURE_USER_PASS = process.env.AZURE_USER_PASS
-const AZURE_HOST = process.env.AZURE_HOST
+const MYSQL_DB = process.env.MYSQL_DB
+const MYSQL_USER_PASS= process.env.MYSQL_USER_PASS
 
-const sequelize = new Sequelize(AZURE_DB, AZURE_USER_NAME, AZURE_USER_PASS, {
-  host: AZURE_HOST,
+const connectionSequelize = new Sequelize(MYSQL_DB, 'root', MYSQL_USER_PASS, {
+  host: 'localhost',
   dialect: 'mysql',
-  dialectOptions: {
-    options: {
-      encrypt: true
-    }
-  },
-  logging: false
+  logging: false,
 })
 
-export default sequelize
+connectionSequelize.authenticate()
+  .then(() => {
+    console.log('Connection to the database has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  })
+
+export default connectionSequelize
 

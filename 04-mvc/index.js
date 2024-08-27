@@ -7,7 +7,8 @@
 import express from 'express'
 import morgan from 'morgan'
 import hbs from 'hbs'
-import { productRouter, userRouter } from './routers/index.js'
+//import { productRouter, userRouter } from './routers/index.js'
+import { userRouter } from './routers/index.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 //const addRequestLog = require('./middlewares')
@@ -36,11 +37,13 @@ app.set('view engine', 'hbs')
 app.set('views', 'views')
 hbs.registerPartials('views/partials')
 
+
+
 /**
  * Route Handlers set up.
  */
 app.use('/user', userRouter)
-app.use('/product', productRouter)
+// app.use('/product', productRouter)
 
 /**
  * Index route.
