@@ -5,7 +5,7 @@
 
 /** Import user's model. */
 //import User from '../models/userModel.js'
-import User from '../models/sequelize/userModelSequelize'
+import User from '../models/sequelize/userModelSequelize.js'
 
 /** Import statments. */
 import bcrypt from 'bcrypt'

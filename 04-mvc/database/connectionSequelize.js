@@ -14,10 +14,16 @@ const connectionSequelize = new Sequelize(MYSQL_DB, 'root', MYSQL_USER_PASS, {
 
 connectionSequelize.authenticate()
   .then(() => {
-    console.log('Connection to the database has been established successfully.');
+    console.log('Connection to the database has been established successfully.')
+  })
+  .then(() =>{
+    return connectionSequelize.sync({force: true})
+  })
+  .then(() => {
+    console.log('Database synchronized successfully.')
   })
   .catch(err => {
-    console.error('Unable to connect to the database:', err);
+    console.error('Unable to connect to the database:', err)
   })
 
 export default connectionSequelize
