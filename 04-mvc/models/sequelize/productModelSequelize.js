@@ -22,8 +22,7 @@ const Product = sequelize.define('Product', {
   description: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  timestamps: true
+  }
 })
 
 export default Product

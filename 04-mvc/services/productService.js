@@ -4,7 +4,8 @@
  */
 
 /** Import product's model. */
-import Product from '../models/productModel.js'
+//import Product from '../models/productModel.js'
+import Product from "../models/sequelize/productModelSequelize.js"
 
 /**
  * @class ProductService
@@ -18,12 +19,10 @@ class ProductService {
    * @returns {Promise<Object|null>} The saved product object if successful, otherwise null.
    */
   static async createProduct({product}){
-    console.log("Hello I'm createProduct")
-    const newProduct = new Product(product)
     try {
-      const newProductSaved = await newProduct.save()
-      if (newProductSaved) {
-        return newProductSaved
+      const newProduct = await Product.create(product)
+      if (newProduct) {
+        return newProduct
       } else {
         return null
       }
@@ -44,10 +43,10 @@ class ProductService {
   static async getProducts({id}){
     try {
       if (!id) {
-        const products = await Product.find({})
+        const products = await Product.findAll()
         return products
       } else {
-        const filteredProduct = await Product.findById({_id: id})
+        const filteredProduct = await Product.findByPk({id})
         return filteredProduct
       }
     } catch (error) {
