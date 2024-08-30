@@ -8,6 +8,7 @@
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
+    "debug": "set DEBUG=server,app && nodemon server.js",
     "docs": "jsdoc -d docs --configure jsdocConf.json"
   },
   "keywords": [],
@@ -30,6 +31,7 @@
     "tedious": "^18.6.1"
   },
   "devDependencies": {
+    "debug": "^4.3.6",
     "docdash": "^2.0.2"
   }
 }
