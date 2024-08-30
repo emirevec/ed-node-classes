@@ -5,6 +5,7 @@
 
 /** Import Statements. */
 import dotenv from 'dotenv'
+import debug from 'debug'
 import app from './index.js'
 
 /** Import the database and sets up the connection. */
@@ -17,12 +18,14 @@ dotenv.config()
 /** The port number on which the server listens. */
 const PORT = process.env.PORT || 9000
 
+const debugServer = debug('server')
 /**
  * Starts the server and listens on the specified port.
  * Logs a message indicating the server is running and the URL where it's accessible.
  */
 const server = app.listen(PORT, () => {
   console.log(`Example app listening on PORT http://localhost:${PORT}`)
+  debugServer(`Example app listening on PORT http://localhost:${PORT}`)
 })
 
 /**

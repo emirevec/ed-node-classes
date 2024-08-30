@@ -7,6 +7,7 @@
 import express from 'express'
 import morgan from 'morgan'
 import hbs from 'hbs'
+import debug from 'debug'
 //import { productRouter, userRouter } from './routers/index.js'
 import { userRouter, productRouter } from './routers/index.js'
 import cookieParser from 'cookie-parser'
@@ -18,7 +19,7 @@ import cors from 'cors'
  * @description Initializes middlewares, sets up view engines and defines routes.
  */
 const app = express()
-
+const debugApp = debug('app')
 /** 
  * Middleware and configurations.
 */
@@ -62,5 +63,7 @@ app.get('/', (req, res) => {
 app.get('*', (req, res) => {
   res.render('error')
 })
+
+debugApp('The app was loaded ok')
 
 export default app
