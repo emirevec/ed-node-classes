@@ -4,8 +4,7 @@
  */
 
 /** Import user's model. */
-//import User from '../../models/userModel.js'
-import User from '../../models/sequelize/userModelSequelize.js'
+import User from '../../models/userModel.js'
 
 /** Import library statments. */
 import bcrypt from 'bcrypt'
@@ -24,7 +23,7 @@ dotenv.config()
  */
 const authenticateUser = async ({ email, password }) => {
   try {
-    const user = await User.findOne({where: {email: email}})
+    const user = await User.findOne({email})
     // console.log('Desde auth' + user)
     const validPassword = await bcrypt.compare(password, user.password)
     if(!user || !validPassword) {

@@ -9,8 +9,7 @@ import debug from 'debug'
 import app from './index.js'
 
 /** Import the database and sets up the connection. */
-//import connection from './database/connection.js'
-import connectionSequelize from './database/connectionSequelize.js'
+import connection from './database/connection.js'
 
 /** Load environment variables from .env file. */
 dotenv.config()
