@@ -2,6 +2,18 @@ import connection from '../database/connection.js'
 import mongoose from 'mongoose'
 import User from './userModel.js'
 
+let session
+
+beforeEach(async () => {
+  session = await mongoose.startSession()
+  session.startTransaction()
+})
+
+afterEach(async () => {
+  await session.abortTransaction()
+  session.endSession()
+})
+
 describe('User Model Test', () => {
   it('should create a user successfully', async () => {
     const validUser = new User({
@@ -10,7 +22,7 @@ describe('User Model Test', () => {
       password: 'pass1234'
     })
 
-    const savedUser = await validUser.save()
+    const savedUser = await validUser.save({session})
 
     expect(savedUser._id).toBeDefined()
     expect(savedUser.name).toBe('Jonny Doe')
@@ -48,11 +60,11 @@ describe('User Model Test', () => {
       password: 'pass1234'
     })
 
-    await user1.save()
+    await user1.save({session})
 
     let err
     try {
-      await user2.save()
+      await user2.save({session})
     } catch (error) {
       err = error
     }
@@ -68,7 +80,7 @@ describe('User Model Test', () => {
       password: 'pass1234'
     })
 
-    const savedUser = await userWithoutDate.save()
+    const savedUser = await userWithoutDate.save({session})
 
     expect(savedUser.date).toBeDefined()
     
