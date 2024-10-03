@@ -1,5 +1,5 @@
 /**
- * @file AroductService.js
+ * @file ProductService.js
  * @description Provides service functions for handling product-related operations.
  */
 
