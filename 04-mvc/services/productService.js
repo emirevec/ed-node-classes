@@ -18,7 +18,6 @@ class ProductService {
    * @returns {Promise<Object|null>} The saved product object if successful, otherwise null.
    */
   static async createProduct({product}){
-    console.log("Hello I'm createProduct")
     const newProduct = new Product(product)
     try {
       const newProductSaved = await newProduct.save()
