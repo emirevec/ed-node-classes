@@ -1,4 +1,4 @@
-import ProductService from './productService'
+import ProductService from './ProductService'
 import Product from '../models/productModel'
 
 jest.mock('../models/productModel')
