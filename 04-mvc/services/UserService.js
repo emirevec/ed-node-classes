@@ -40,7 +40,7 @@ class UserService {
       }
     } catch (error) {
       console.error(error.message)
-      throw error
+      // throw error
     }
   }
 
