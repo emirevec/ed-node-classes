@@ -4,6 +4,8 @@
  */
 
 /** Import statements. */
+import ROUTES from '../config/routes.js'
+import MESSAGE from '../config/messages.js'
 import { request, response } from 'express'
 
 /** Import product's services. */
@@ -17,9 +19,9 @@ import ProductService from '../services/ProductService.js'
 const renderFormProduct = (req = request, res = response) => {
   const user = req.user
   if (user) {
-    res.render('./product/formProduct')
+    res.render(ROUTES.PRODUCT_FORM)
   } else {
-    res.render('./user/login')
+    res.render(ROUTES.USER_LOG_IN)
   }
 }
 
@@ -27,11 +29,10 @@ const renderFormProduct = (req = request, res = response) => {
 const renderProductsList = async (req = request, res = response) => {
   try {
     const products = await ProductService.getProducts({})
-    return res.render('product/cardProducts', {product: products})
+    return res.render(ROUTES.PRODUCT_CARD, {product: products})
   } catch (error) {
     console.error(error.message)
-    const err = 'An error has occurred when trying to show the list of products.'
-    return res.render('error', {error: err})
+    return res.render('error', {error: MESSAGE.ERROR.PRODUCT.LIST})
   }
 }
 
@@ -62,15 +63,14 @@ const registerProduct = async (req = request, res = response) => {
     const productRegistered = await ProductService.createProduct({product})
 
     if (productRegistered) {
-      return res.render('./product/formProduct', {message: 'The new product has been succesfully added!'})
+      return res.render(ROUTES.PRODUCT_FORM, {message: MESSAGE.SUCCES.PRODUCT.NEW})
     } else {
-      return res.render('error', 'An error has occurred when trying to add the product.')
+      return res.render('error', {err: MESSAGE.ERROR.PRODUCT.NEW})
     }
 
   } catch (error) {
     console.error(error.message)
-    const err = 'An error has occurred when trying to add the product.'
-    return res.render('error', {error: err})
+    return res.render('error', {error: MESSAGE.ERROR.PRODUCT.NEW})
   }
 }
 
