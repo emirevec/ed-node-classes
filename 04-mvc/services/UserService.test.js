@@ -120,7 +120,6 @@ describe('UserService Unit Tests', () => {
     expect(result).toEqual(updatedUser)
 
   })
-  //Deletes a user from the database by ID
 
   it('should handle and log errors during user creation', async () => {
     const ERROR_MESSAGE = 'Database error'
