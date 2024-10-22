@@ -1,5 +1,6 @@
 import connection from '../database/connection.js'
 import mongoose from 'mongoose'
+import { productModelDataMock } from '../mocks/productMocks.js'
 import Product from './productModel.js'
 
 let session
@@ -16,12 +17,7 @@ afterEach(async () => {
 
 describe('Product Model Test', () => {
   it('should create a product successfully', async () => {
-    const validProduct = new Product({
-      name:'Donuts',
-      price: 100,
-      image: 'http://myimage.com/1234',
-      description:'My donut description here'
-    })
+    const validProduct = new Product(productModelDataMock)
 
     const savedProduct = await validProduct.save({session})
 

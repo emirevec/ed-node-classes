@@ -1,4 +1,7 @@
 import ROUTES from '../config/routes'
+import ERROR_MESSAGE from '../config/messages'
+import MESSAGE from '../config/messages'
+import { productModelDataMock, productListDatabaseMock } from '../mocks/productMocks'
 import { request, response } from 'express'
 import ProductService from '../services/ProductService'
 import {
@@ -7,8 +10,6 @@ import {
   renderProductsList,
   registerProduct
 } from './productControllers'
-import ERROR_MESSAGE from '../config/messages'
-import MESSAGE from '../config/messages'
 
 jest.mock('../services/ProductService')
 
@@ -39,28 +40,11 @@ describe('Product controller test', () => {
   })
 
   it('should render the product list successfully', async () => {
-    const productList = {
-      product01: {
-        name: 'Product_01',
-        price: 100,
-        image: 'www.imagesrc.com',
-        description: 'Product 01 description',
-        _id: 'product01_id'
-      },
-      product02: {
-        name: 'Product_01',
-        price: 100,
-        image: 'www.imagesrc.com',
-        description: 'Product 01 description',
-        _id: 'product02_id'
-      }
-    }
-
-    ProductService.getProducts.mockResolvedValue(productList)
+    ProductService.getProducts.mockResolvedValue(productListDatabaseMock)
 
     await renderProductsList(req,res)
 
-    expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCT_CARD, { product: productList })
+    expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCT_CARD, { product: productListDatabaseMock })
   })
 
   it('should render the error page with its error message if an error occurred when trying to show the product list', async () => {
@@ -72,25 +56,17 @@ describe('Product controller test', () => {
   })
 
   it('should register a product successfully', async () => {
-    const productData = {
-      name: 'Product_01',
-      price: 100,
-      image: 'www.imagesrc.com',
-      description: 'Product 01 description'
-    }
-
     req.body = {
-      name: productData.name,
-      price: productData.price,
-      image: productData.image,
-      description: productData.description
+      name: productModelDataMock.name,
+      price: productModelDataMock.price,
+      image: productModelDataMock.image,
+      description: productModelDataMock.description
     }
 
-    ProductService.createProduct.mockResolvedValue(productData)
+    ProductService.createProduct.mockResolvedValue(productModelDataMock)
 
     await registerProduct(req, res)
 
     expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCT_FORM, { message: MESSAGE.SUCCES.PRODUCT.NEW})
   })
-
 })
