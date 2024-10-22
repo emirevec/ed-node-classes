@@ -1,5 +1,4 @@
 import ROUTES from '../config/routes'
-import ERROR_MESSAGE from '../config/messages'
 import MESSAGE from '../config/messages'
 import { productModelDataMock, productListDatabaseMock } from '../mocks/productMocks'
 import { request, response } from 'express'
@@ -30,13 +29,13 @@ describe('Product controller test', () => {
 
     renderFormProduct(req,res)
 
-    expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCT_FORM)
+    expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCTS.FORM)
   })
 
   it('should render the login form if the user is not authenticates', () => {
     renderFormProduct(req,res)
 
-    expect(res.render).toHaveBeenCalledWith(ROUTES.USER_LOG_IN)
+    expect(res.render).toHaveBeenCalledWith(ROUTES.USERS.LOG_IN)
   })
 
   it('should render the product list successfully', async () => {
@@ -44,7 +43,7 @@ describe('Product controller test', () => {
 
     await renderProductsList(req,res)
 
-    expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCT_CARD, { product: productListDatabaseMock })
+    expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCTS.CARD, { product: productListDatabaseMock })
   })
 
   it('should render the error page with its error message if an error occurred when trying to show the product list', async () => {
@@ -67,6 +66,6 @@ describe('Product controller test', () => {
 
     await registerProduct(req, res)
 
-    expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCT_FORM, { message: MESSAGE.SUCCES.PRODUCT.NEW})
+    expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCTS.FORM, { message: MESSAGE.SUCCESS.PRODUCT.NEW})
   })
 })

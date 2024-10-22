@@ -6,7 +6,7 @@ const MESSAGE = {
       NEW: 'An error has occurred when trying to add the product'
     }
   },
-  SUCCES: {
+  SUCCESS: {
     PRODUCT: { 
       NEW:'The new product has been succesfully added!'
     }

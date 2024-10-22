@@ -14,10 +14,10 @@ const productListDatabaseMock = [
     _id: 'product01_id'
   },
   {
-    name: 'Product_01',
+    name: 'Product_02',
     price: 100,
     image: 'www.imagesrc.com',
-    description: 'Product 01 description',
+    description: 'Product 02 description',
     _id: 'product02_id'
   }]
 

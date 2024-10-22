@@ -19,9 +19,9 @@ import ProductService from '../services/ProductService.js'
 const renderFormProduct = (req = request, res = response) => {
   const user = req.user
   if (user) {
-    res.render(ROUTES.PRODUCT_FORM)
+    res.render(ROUTES.PRODUCTS.FORM)
   } else {
-    res.render(ROUTES.USER_LOG_IN)
+    res.render(ROUTES.USERS.LOG_IN)
   }
 }
 
@@ -29,7 +29,7 @@ const renderFormProduct = (req = request, res = response) => {
 const renderProductsList = async (req = request, res = response) => {
   try {
     const products = await ProductService.getProducts({})
-    return res.render(ROUTES.PRODUCT_CARD, {product: products})
+    return res.render(ROUTES.PRODUCTS.CARD, {product: products})
   } catch (error) {
     console.error(error.message)
     return res.render('error', {error: MESSAGE.ERROR.PRODUCT.LIST})
@@ -63,7 +63,7 @@ const registerProduct = async (req = request, res = response) => {
     const productRegistered = await ProductService.createProduct({product})
 
     if (productRegistered) {
-      return res.render(ROUTES.PRODUCT_FORM, {message: MESSAGE.SUCCES.PRODUCT.NEW})
+      return res.render(ROUTES.PRODUCTS.FORM, {message: MESSAGE.SUCCESS.PRODUCT.NEW})
     } else {
       return res.render('error', {err: MESSAGE.ERROR.PRODUCT.NEW})
     }

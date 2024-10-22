@@ -1,7 +1,14 @@
 const ROUTES = {
-  PRODUCT_CARD: './product/cardProducts',
-  PRODUCT_FORM: './product/formProduct',
-  USER_LOG_IN: './user/logint'
+  PRODUCTS: {
+    CARD: './product/cardProducts',
+    FORM: './product/formProduct'
+  },
+  USERS: {
+    ACCOUNT: './user/myAccount',
+    JOIN: './user/joinNow',
+    LIST: './user/usersList',
+    LOG_IN: './user/logint'
+  }
 }
 
 export default ROUTES

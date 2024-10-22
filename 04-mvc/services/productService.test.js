@@ -1,4 +1,5 @@
 import { productModelDataMock } from '../mocks/productMocks'
+import MESSAGE from '../config/messages'
 import ProductService from './ProductService'
 import Product from '../models/productModel'
 
@@ -31,9 +32,8 @@ describe('ProductService Unit Tests', () => {
   })
 
   it('should handle and log errors during product creation', async () => {
-    const ERROR_MESSAGE = 'Database error'
+    const mockSave = jest.fn().mockRejectedValue(new Error(MESSAGE.ERROR.DB))
 
-    const mockSave = jest.fn().mockRejectedValue(new Error(ERROR_MESSAGE))
     Product.mockImplementation(() => ({ save: mockSave }))
 
     console.error = jest.fn()
@@ -41,7 +41,7 @@ describe('ProductService Unit Tests', () => {
     const result = await ProductService.createProduct({ product: productModelDataMock })
 
     expect(mockSave).toHaveBeenCalledTimes(1)
-    expect(console.error).toHaveBeenCalledWith(ERROR_MESSAGE)
+    expect(console.error).toHaveBeenCalledWith(MESSAGE.ERROR.DB)
     expect(result).toBeUndefined()
   })
 })
