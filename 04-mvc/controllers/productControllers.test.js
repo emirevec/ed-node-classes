@@ -64,9 +64,9 @@ describe('Product controller test', () => {
   })
 
   it('should render the error page with its error message if an error occurred when trying to show the product list', async () => {
-    ProductService.getProducts.mockResolvedValue(new Error(MESSAGE.ERROR.PRODUCT.LIST))
+    ProductService.getProducts.mockRejectedValue(new Error(MESSAGE.ERROR.PRODUCT.LIST))
 
-    await renderProductsList()
+    await renderProductsList(req,res)
 
     expect(res.render).toHaveBeenCalledWith('error', { error: MESSAGE.ERROR.PRODUCT.LIST})
   })
