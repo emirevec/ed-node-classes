@@ -1,3 +1,4 @@
+import { userModelDataMock } from '../mocks/userMocks.js'
 import connection from '../database/connection.js'
 import mongoose from 'mongoose'
 import User from './userModel.js'
@@ -16,11 +17,7 @@ afterEach(async () => {
 
 describe('User Model Test', () => {
   it('should create a user successfully', async () => {
-    const validUser = new User({
-      name: 'Jonny Doe',
-      email: 'jonny@mail.com',
-      password: 'pass1234'
-    })
+    const validUser = new User(userModelDataMock)
 
     const savedUser = await validUser.save({session})
 
@@ -48,17 +45,8 @@ describe('User Model Test', () => {
   })
 
   it('should enforce unique email constraint', async () => {
-    const user1 = new User({
-      name: 'John Doe',
-      email: 'john@mail.com',
-      password: 'pass1234'
-    })
-
-    const user2 = new User({
-      name: 'Jane Doe',
-      email: 'john@mail.com',
-      password: 'pass1234'
-    })
+    const user1 = new User(userModelDataMock)
+    const user2 = new User(userModelDataMock)
 
     await user1.save({session})
 
@@ -74,11 +62,7 @@ describe('User Model Test', () => {
   })
 
   it('should set the default date if not provided', async () => {
-    const userWithoutDate = new User({
-      name: 'John Doe Second',
-      email: 'johnSecond@mail.com',
-      password: 'pass1234'
-    })
+    const userWithoutDate = new User(userModelDataMock)
 
     const savedUser = await userWithoutDate.save({session})
 

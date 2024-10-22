@@ -6,6 +6,7 @@
 /** Import statements. */
 import { request, response } from 'express'
 import { validationResult } from 'express-validator'
+import ROUTES from '../config/routes.js'
 
 /** Import user's services. */
 import UserService from '../services/UserService.js'
@@ -19,7 +20,7 @@ import { authenticateUser, sendEmail} from '../services/users/index.js'
 const showUsers = async (req = request, res = response) => {
   try {
     const users = await UserService.getUsers({})
-    res.render('./user/usersList', {user: users})
+    res.render(ROUTES.USERS.LIST, {user: users})
   } catch (error) {
     console.error(error)
     const err = "An error has ocurred when trying to get the list of users."
@@ -29,12 +30,12 @@ const showUsers = async (req = request, res = response) => {
 
 /** Handler rendering user's "join" form. @function */
 const renderFormJoinNow = (req = request, res = response) => {
-  res.render('./user/joinNow')
+  res.render(ROUTES.USERS.JOIN)
 }
 
 /** Handler rendering user's "log in" form. @function */
 const renderFormLogIn = (req = request, res = response) => {
-  res.render('./user/login')
+  res.render(ROUTES.USERS.LOG_IN)
 }
 
 /** Handler rendering user's "account information" form. @function */
@@ -43,9 +44,9 @@ const renderFormAccount = async (req = request, res = response) => {
   try {
     if (userLogged) {
       const user = await UserService.getUsers({id: userLogged})
-      res.render('./user/myAccount', {user: user})
+      res.render(ROUTES.USERS.ACCOUNT, {user: user})
     } else {
-      res.render('./user/login')
+      res.render(ROUTES.USERS.LOG_IN)
     }
   } catch (error) {
     const err = 'Error from renderFormAccount'
@@ -76,7 +77,7 @@ const createNewUser = async (req = request, res = response) => {
     }
     /* sendEmail(newUser.name, newUser.email)
       .then(console.log('Email sent')) */
-    return res.render('./user/LogIn')
+    return res.render(ROUTES.USERS.LOG_IN)
   } catch (error) {
     console.error(error.message)
     const err = "An error has occurred when trying to create the user."
@@ -92,7 +93,7 @@ const updateUserAccount = async (req = request, res = response) => {
     try {
       const userUpdated = await UserService.updateUser({name, email})
       if (userUpdated) {
-        res.render('./user/myAccount',{message: 'User name successfully updated.', user: userUpdated})
+        res.render(ROUTES.USERS.ACCOUNT, {message: 'User name successfully updated.', user: userUpdated})
       } else {
         res.render('error', {error: 'Cannot update user, please check your data and try again.'})
       }
@@ -102,7 +103,7 @@ const updateUserAccount = async (req = request, res = response) => {
       return res.render('error', {error: err})
     }
   } else {
-    res.render('./user/login')
+    res.render(ROUTES.USERS.LOG_IN)
   }
 }
 
@@ -114,7 +115,7 @@ const deleteUserAccount = async (req = request, res = response) => {
       const userDeleted = await UserService.deleteUser({id: userLogged})
       console.log(userDeleted)
       if (userDeleted) {
-        res.clearCookie('auth-token').render('./user/myAccount',{message: 'User was successfully deleted.'})
+        res.clearCookie('auth-token').render(ROUTES.USERS.ACCOUNT, {message: 'User was successfully deleted.'})
       } else {
         res.render('error', {error: 'Cannot delete user account, we want you here.'})
       }
@@ -124,7 +125,7 @@ const deleteUserAccount = async (req = request, res = response) => {
       return res.render('error', {error: err})
     }
   } else {
-    res.render('./user/login')
+    res.render(ROUTES.USERS.LOG_IN)
   }
 }
 
@@ -145,7 +146,7 @@ const logIn = async (req = request, res = response) => {
       maxAge: 60 * 60 * 1000,
       path: '/'
       }
-    ).render('./product/formProduct')
+    ).render(ROUTES.PRODUCTS.FORM)
 
   } catch (error) {
     console.error(error.message)  
