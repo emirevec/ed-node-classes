@@ -43,6 +43,7 @@ describe('Product controller test', () => {
 
     await renderProductsList(req,res)
 
+    expect(ProductService.getProducts).toHaveBeenCalled()
     expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCTS.CARD, { product: productListDatabaseMock })
   })
 
@@ -51,6 +52,7 @@ describe('Product controller test', () => {
 
     await renderProductsList(req,res)
 
+    expect(ProductService.getProducts).toHaveBeenCalled()
     expect(res.render).toHaveBeenCalledWith('error', { error: MESSAGE.ERROR.PRODUCT.LIST})
   })
 
@@ -66,6 +68,7 @@ describe('Product controller test', () => {
 
     await registerProduct(req, res)
 
+    expect(ProductService.createProduct).toHaveBeenCalled()
     expect(res.render).toHaveBeenCalledWith(ROUTES.PRODUCTS.FORM, { message: MESSAGE.SUCCESS.PRODUCT.NEW})
   })
 })
