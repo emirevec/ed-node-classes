@@ -41,11 +41,10 @@ const renderProductDetail = async (req = request, res = response) => {
   const id = req.params._id
   try {
     const product = await ProductService.getProducts(id)
-    return res.render('product/detailProduct', {product: product})
+    return res.render(ROUTES.PRODUCTS.DETAIL, {product: product})
   } catch (error) {
   console.error(error.message)
-  const err = 'An error has occurred when trying to show the product detail.'
-  return res.render('error', {error: err})
+  return res.render('error', {error: MESSAGE.ERROR.PRODUCT.DETAIL})
   }
 }
 

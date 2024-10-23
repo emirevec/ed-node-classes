@@ -1,6 +1,7 @@
 const ROUTES = {
   PRODUCTS: {
     CARD: './product/cardProducts',
+    DETAIL: './product/detailProduct',
     FORM: './product/formProduct'
   },
   USERS: {
