@@ -89,8 +89,6 @@ class UserService {
   static async deleteUser({id}){
     try {
       const deletedUser = await User.findByIdAndDelete(id)
-      console.log("The user account was deleted")
-      console.log(deletedUser)
       return deletedUser
     } catch (error) {
       console.error(error)
