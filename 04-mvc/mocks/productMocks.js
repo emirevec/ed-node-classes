@@ -5,6 +5,14 @@ const productModelDataMock = {
   description:'My donut description here'
 }
 
+const productDatabaseMock = {
+  name: 'Product_01',
+  price: 100,
+  image: 'www.imagesrc.com',
+  description: 'Product 01 description',
+  _id: 'product01_id'
+}
+
 const productListDatabaseMock = [
   {
     name: 'Product_01',
@@ -23,5 +31,6 @@ const productListDatabaseMock = [
 
 export {
   productModelDataMock,
+  productDatabaseMock,
   productListDatabaseMock
 }
